@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "./",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es2017",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@core/*": ["src/core/*"]
+    }
+  },
+  "include" :[
+    "src/**/*.ts"
+  ],
+  "exclude": [ "node_modules" ]
+}
