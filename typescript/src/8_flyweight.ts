@@ -47,4 +47,4 @@ const bmwX6 = factoryInstance.create(Models.bmw, 10000)
 const audi = factoryInstance.create(Models.audi, 12000)
 const bmwX3 = factoryInstance.create(Models.bmw, 8000)
 
-console.log('hellllooo world...')
+console.log(bmwX3 === bmwX6)

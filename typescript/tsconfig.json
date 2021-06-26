@@ -10,14 +10,12 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "paths": {
-      "@/*": ["src/*"],
-      "@core/*": ["src/core/*"]
-    }
+    "sourceMap": false
   },
   "include" :[
     "src/**/*.ts"
   ],
-  "exclude": [ "node_modules" ]
+  "exclude": [
+    "node_modules"
+  ]
 }
