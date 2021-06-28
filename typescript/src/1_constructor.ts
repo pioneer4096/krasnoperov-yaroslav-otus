@@ -1,10 +1,16 @@
-class Server {
+export enum ServerProtocols {
+    https = 'https',
+    ftp = 'ftp',
+    http = 'http'
+}
+
+export class Server {
     name: string
     ip: string
     port: number
     protocol: string
 
-    constructor(name: string, ip: string, port: number) {
+    constructor(name: string, ip: string, port?: number) {
         this.name = name
         this.ip = ip
         this.port = port
@@ -18,13 +24,13 @@ class Server {
     getProtocol(port?: number): string {
         switch (port) {
             case 443:
-                return 'https'
+                return ServerProtocols.https
             case 21:
-                return 'ftp'
+                return ServerProtocols.ftp
 
             case 80:
             default:
-                return 'http'
+                return ServerProtocols.http
         }
     }
 }

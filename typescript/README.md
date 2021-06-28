@@ -12,3 +12,5 @@
 **Описание**
 
 Взял проект с примерами паттернов https://github.com/vladilenm/js-patterns-youtube
+
+Местами модифицировал примеры с https://loredanacirstea.github.io/es6-design-patterns/

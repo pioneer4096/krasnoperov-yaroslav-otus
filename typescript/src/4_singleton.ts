@@ -1,9 +1,9 @@
-class Database {
+export class Database {
   static exists: boolean
   static instance: Database
-  data: any
+  data: string
 
-  constructor(data: any) {
+  constructor(data: string) {
     if(Database.exists) {
         return Database.instance
     }
