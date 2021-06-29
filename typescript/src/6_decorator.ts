@@ -1,4 +1,4 @@
-enum Providers {
+export enum Providers {
     aws = 'aws',
     azure = 'azure'
 }
@@ -17,7 +17,7 @@ class AbstractServer implements IServer {
   }
 }
 
-class ConcreteServer extends AbstractServer {
+export class ConcreteServer extends AbstractServer {
   ip: string
   port: number
 
@@ -45,7 +45,7 @@ class ServerDecorator extends AbstractServer {
   }
 }
 
-class AwsServer extends ServerDecorator {
+export class AwsServer extends ServerDecorator {
   type = Providers.aws
 
   constructor(server: IServer) {
@@ -61,7 +61,7 @@ class AwsServer extends ServerDecorator {
   }
 }
 
-class AzureServer extends ServerDecorator {
+export class AzureServer extends ServerDecorator {
   type = Providers.azure
   isAzure = true
 

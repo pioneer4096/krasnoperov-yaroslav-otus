@@ -17,10 +17,10 @@ export class Database {
   }
 }
 
-const mongo = new Database('MongoDB')
-console.log(mongo.getData())
-
-const mysql = new Database('MySQL')
-console.log(mysql.getData())
+// USE CASE EXAMPLE
+// const mongo = new Database('MongoDB')
+// console.log(mongo.getData())
+// const mysql = new Database('MySQL')
+// console.log(mysql.getData())
 
 
