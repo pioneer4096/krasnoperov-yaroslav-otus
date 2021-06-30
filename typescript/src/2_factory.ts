@@ -1,4 +1,4 @@
-enum Memberships {
+export enum Memberships {
     simple = 'простая подписка',
     standard = 'стандартная подписка',
     premium = 'премиум подписка'
@@ -32,7 +32,7 @@ class Membership implements IMember {
     }
 }
 
-class SimpleMembership extends Membership {
+export class SimpleMembership extends Membership {
     static PRICE: number = 100
     static TYPE = Memberships.simple
 
@@ -41,7 +41,7 @@ class SimpleMembership extends Membership {
     }
 }
 
-class StandardMembership extends Membership {
+export class StandardMembership extends Membership {
     static PRICE: number = 150
     static TYPE = Memberships.standard
 
@@ -50,7 +50,7 @@ class StandardMembership extends Membership {
     }
 }
 
-class PremiumMembership extends Membership implements IFreeze {
+export class PremiumMembership extends Membership implements IFreeze {
     static PRICE: number = 250
     static TYPE = Memberships.premium
     freezeDays = 90
@@ -70,7 +70,7 @@ class PremiumMembership extends Membership implements IFreeze {
 }
 
 
-class MemberFactory {
+export class MemberFactory {
     create(name: string, type?: Memberships): IMember {
         switch (type) {
             case Memberships.standard: return new StandardMembership(name)
