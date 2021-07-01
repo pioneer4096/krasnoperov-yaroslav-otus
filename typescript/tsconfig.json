@@ -4,7 +4,7 @@
     "rootDir": "src",
     "baseUrl": "./",
     "noImplicitAny": true,
-    "module": "ES6",
+    "module": "commonjs",
     "target": "es2017",
     "allowJs": true,
     "moduleResolution": "Node",
@@ -17,8 +17,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "files": [
-    "./node_modules/@types/express/index.d.ts"
   ]
 }
