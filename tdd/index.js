@@ -1,19 +1,10 @@
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const getPath = require("./getPath")
+const {MARKER, template03} = require("./templates")
 
-const dom = new JSDOM(`<!DOCTYPE html>
-    <body>
-        <div>
-            <div>
-                <p>One</p>
-                <p id="test">Two</p>
-                <p>Three</p>
-                <p>Four</p>
-            </div>
-        </div>
-    </body>`);
+const dom = new JSDOM(template03);
 
-const el = dom.window.document.getElementById('test')
-const selector = getPath(el, true)
-console.log(selector);
+const el = dom.window.document.getElementById(MARKER)
+const selector = getPath(el)
+console.log('path selector = ', selector);
