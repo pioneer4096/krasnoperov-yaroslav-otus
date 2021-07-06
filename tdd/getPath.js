@@ -1,10 +1,25 @@
+const TAG_BODY = 'body'
+
 const getPath = function(el) {
     if(!el) {
         throw new Error('некорректный элемент в аргументе функции')
     }
 
-    return el.tagName.toLowerCase() === 'body' ? 'body' : ''
-
+    if(getTagName(el) === TAG_BODY) {
+        return TAG_BODY
+    }
+    else {
+        const parent = getParent(el)
+        const parentTagName = getTagName(parent)
+        const childCount = parent.children.length
+        if((parentTagName === TAG_BODY) && (childCount === 1)) {
+            return `${parentTagName} ${getTagName(el)}`
+        }
+        else {
+            return ''
+        }
+    }
+    
     /*const path = []
     let element = el
     let parent = null
@@ -34,10 +49,14 @@ const getPath = function(el) {
 const getParent = function (el) {
     const parent = el && el.parentNode
     return parent
-        ? parent.tagName === 'BODY'
+        ? parent.tagName === TAG_BODY
             ? null
             : parent
         : null
+}
+
+const getTagName = function(el) {
+    return el.tagName.toLowerCase()
 }
 
 module.exports = getPath

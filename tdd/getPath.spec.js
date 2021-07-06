@@ -1,7 +1,7 @@
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const getPath = require("./getPath")
-const {MARKER, template01, template02} = require("./templates")
+const {MARKER, template01, template02, template03} = require("./templates")
 
 describe('TDD01: testing template01 without any marker', () => {
     it('should throw an exception', () => {
@@ -20,5 +20,15 @@ describe('TDD02: testing template02 with marker on body', () => {
         const el = dom.window.document.getElementById(MARKER)
         const path = getPath(el)
         expect(path).toBe('body')
+    })
+})
+
+
+describe('TDD03: testing template03 with only one p - tag', () => {
+    it('should return path "body p"', () => {
+        const dom = new JSDOM(template03);
+        const el = dom.window.document.getElementById(MARKER)
+        const path = getPath(el)
+        expect(path).toBe('body p')
     })
 })

@@ -16,8 +16,14 @@ const template04 = `<!DOCTYPE html>
         <p id="${MARKER}">Two</p>
     </body>`
 
-
 const template05 = `<!DOCTYPE html>
+    <body>
+        <div>
+            <p id="${MARKER}">Two</p>
+        </div>
+    </body>`
+
+const template06 = `<!DOCTYPE html>
     <body>
         <div>
             <p>One</p>
