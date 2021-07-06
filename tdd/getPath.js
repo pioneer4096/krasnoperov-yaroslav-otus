@@ -2,6 +2,9 @@ const getPath = function(el) {
     if(!el) {
         throw new Error('некорректный элемент в аргументе функции')
     }
+
+    return el.tagName.toLowerCase() === 'body' ? 'body' : ''
+
     /*const path = []
     let element = el
     let parent = null
