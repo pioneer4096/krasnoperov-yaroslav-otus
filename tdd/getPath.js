@@ -12,8 +12,16 @@ const getPath = function(el) {
         const parent = getParent(el)
         const parentTagName = getTagName(parent)
         const childCount = parent.children.length
-        if((parentTagName === TAG_BODY) && (childCount === 1)) {
-            return `${parentTagName} ${getTagName(el)}`
+        const elementTagName = getTagName(el)
+
+        if(parentTagName === TAG_BODY) {
+            if(childCount > 1) {
+                const elIndex = [...parent.children].indexOf(el)
+                return `${parentTagName} ${elementTagName}:nth-child(${elIndex})`
+            }
+            else {
+                return `${parentTagName} ${elementTagName}`
+            }
         }
         else {
             return ''
