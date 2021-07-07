@@ -10,43 +10,22 @@ const getPath = function(el) {
     }
     else {
         const path = []
+
         let element = el
         let parent = getParent(element)
-        path.push(calculatePartPath(element, parent))
-        if(isBody(parent)) {
-            return flushPath(path)
-        }
-        else {
+        path.push(calculateElementPath(element, parent))
+
+        while(!isBody(parent)) {
             element = parent
             parent = getParent(element)
-            path.push(calculatePartPath(element, parent))
-            if(isBody(parent)) {
-                return flushPath(path)
-            }
-            else {
-                element = parent
-                parent = getParent(element)
-                path.push(calculatePartPath(element, parent))
-                if(isBody(parent)) {
-                    return flushPath(path)
-                }
-                else {
-                    element = parent
-                    parent = getParent(element)
-                    path.push(calculatePartPath(element, parent))
-                    if(isBody(parent)) {
-                        return flushPath(path)
-                    }
-                    else {
-                        return '' // unhandled for now
-                    }
-                }
-            }
+            path.push(calculateElementPath(element, parent))
         }
+
+        return flushPath(path)
     }
 }
 
-const calculatePartPath = function (element, parent) {
+const calculateElementPath = function(element, parent) {
     const elementTagName = getTagName(element)
     const childCount = parent.children.length
 
@@ -59,17 +38,17 @@ const calculatePartPath = function (element, parent) {
     }
 }
 
-const flushPath = function (path) {
+const flushPath = function(path) {
     const stringPath = getStringPath(path)
     return `${TAG_BODY} ${stringPath}`
 }
 
-const getParent = function (el) {
+const getParent = function(el) {
     return el && el.parentNode || null
 
 }
 
-const isBody = function (el) {
+const isBody = function(el) {
     return getTagName(el) === TAG_BODY
 }
 

@@ -1,7 +1,9 @@
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const getPath = require("./getPath")
-const {MARKER, template01, template02, template03, template04, template05, template06, template07} = require("./templates")
+const MARKER = 'marker'
+
+const template01 = `<!DOCTYPE html> <body></body>`
 
 describe('TDD01: testing template01 without any marker', () => {
     it('should throw an exception', () => {
@@ -14,6 +16,8 @@ describe('TDD01: testing template01 without any marker', () => {
 })
 
 
+const template02 = `<!DOCTYPE html> <body id="${MARKER}"></body>`
+
 describe('TDD02: testing template02 with marker on body', () => {
     it('should return path to body', () => {
         const dom = new JSDOM(template02);
@@ -23,6 +27,10 @@ describe('TDD02: testing template02 with marker on body', () => {
     })
 })
 
+const template03 = `<!DOCTYPE html>
+    <body>
+        <p id="${MARKER}">Two</p>
+    </body>`
 
 describe('TDD03: testing template03 with only one p - tag', () => {
     it('should return path "body p"', () => {
@@ -33,6 +41,11 @@ describe('TDD03: testing template03 with only one p - tag', () => {
     })
 })
 
+const template04 = `<!DOCTYPE html>
+    <body>
+        <p>One</p>
+        <p id="${MARKER}">Two</p>
+    </body>`
 
 describe('TDD04: testing template04 with few p - tags', () => {
     it('should return path "body p:nth-child(1)"', () => {
@@ -43,6 +56,13 @@ describe('TDD04: testing template04 with few p - tags', () => {
     })
 })
 
+const template05 = `<!DOCTYPE html>
+    <body>
+        <div>
+            <p id="${MARKER}">Two</p>
+        </div>
+    </body>`
+
 describe('TDD05: testing template05 with one div contains one p - tag', () => {
     it('should return path "body div p"', () => {
         const dom = new JSDOM(template05);
@@ -52,6 +72,17 @@ describe('TDD05: testing template05 with one div contains one p - tag', () => {
     })
 })
 
+
+const template06 = `<!DOCTYPE html>
+    <body>
+        <div>
+            <p id="${MARKER}">Two</p>
+        </div>
+        <div>
+            <p>One</p>
+        </div>
+    </body>`
+
 describe('TDD06: testing template06 with two div contains one and one p - tags', () => {
     it('should return path "body div:nth-child(0) p"', () => {
         const dom = new JSDOM(template06);
@@ -60,6 +91,22 @@ describe('TDD06: testing template06 with two div contains one and one p - tags',
         expect(path).toBe('body div:nth-child(0) p')
     })
 })
+
+const template07 = `<!DOCTYPE html>
+    <body>
+        <div>
+            <p>A</p>
+            <p>B</p>
+            <p>C</p>
+            <p>D</p>
+        </div>
+        <div>
+            <p>One</p>
+            <p id="${MARKER}">Two</p>
+            <p>Three</p>
+            <p>Four</p>
+        </div>
+    </body>`
 
 describe('TDD07: testing template07 with two div contains few p - tags each', () => {
     it('should return path "body div:nth-child(1) p:nth-child(1)"', () => {
