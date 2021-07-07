@@ -9,62 +9,76 @@ const getPath = function(el) {
         return TAG_BODY
     }
     else {
-        const parent = getParent(el)
-        const parentTagName = getTagName(parent)
-        const childCount = parent.children.length
-        const elementTagName = getTagName(el)
-
-        if(parentTagName === TAG_BODY) {
-            if(childCount > 1) {
-                const elIndex = [...parent.children].indexOf(el)
-                return `${parentTagName} ${elementTagName}:nth-child(${elIndex})`
-            }
-            else {
-                return `${parentTagName} ${elementTagName}`
-            }
+        const path = []
+        let element = el
+        let parent = getParent(element)
+        path.push(calculatePartPath(element, parent))
+        if(isBody(parent)) {
+            return flushPath(path)
         }
         else {
-            return ''
+            element = parent
+            parent = getParent(element)
+            path.push(calculatePartPath(element, parent))
+            if(isBody(parent)) {
+                return flushPath(path)
+            }
+            else {
+                element = parent
+                parent = getParent(element)
+                path.push(calculatePartPath(element, parent))
+                if(isBody(parent)) {
+                    return flushPath(path)
+                }
+                else {
+                    element = parent
+                    parent = getParent(element)
+                    path.push(calculatePartPath(element, parent))
+                    if(isBody(parent)) {
+                        return flushPath(path)
+                    }
+                    else {
+                        return '' // unhandled for now
+                    }
+                }
+            }
         }
     }
-    
-    /*const path = []
-    let element = el
-    let parent = null
+}
 
-    do {
-        parent = getParent(element)
-        console.log('parent = ', parent, ' and tagName = ', parent && parent.tagName)
-        if(parent) {
-            const children = parent.children
-            const tagName = element.tagName
-            if(children.length === 1) {
-                path.push(tagName)
-            }
-            else {
-                const index = [...children].indexOf(element)
-                path.push(`${tagName}:nth-child${index}`)
-            }
-        }
-        else {
+const calculatePartPath = function (element, parent) {
+    const elementTagName = getTagName(element)
+    const childCount = parent.children.length
 
-        }
-    } while(parent)
+    if(childCount > 1) {
+        const elIndex = [...parent.children].indexOf(element)
+        return `${elementTagName}:nth-child(${elIndex})`
+    }
+    else {
+        return `${elementTagName}`
+    }
+}
 
-    return path.map(p => p).reverse().join(' ')*/
+const flushPath = function (path) {
+    const stringPath = getStringPath(path)
+    return `${TAG_BODY} ${stringPath}`
 }
 
 const getParent = function (el) {
-    const parent = el && el.parentNode
-    return parent
-        ? parent.tagName === TAG_BODY
-            ? null
-            : parent
-        : null
+    return el && el.parentNode || null
+
+}
+
+const isBody = function (el) {
+    return getTagName(el) === TAG_BODY
 }
 
 const getTagName = function(el) {
     return el.tagName.toLowerCase()
+}
+
+const getStringPath = function(path = []) {
+    return path.map(p => p).reverse().join(' ')
 }
 
 module.exports = getPath

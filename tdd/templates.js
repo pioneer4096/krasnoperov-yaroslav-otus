@@ -26,6 +26,22 @@ const template05 = `<!DOCTYPE html>
 const template06 = `<!DOCTYPE html>
     <body>
         <div>
+            <p id="${MARKER}">Two</p>
+        </div>
+        <div>
+            <p>One</p>
+        </div>
+    </body>`
+
+const template07 = `<!DOCTYPE html>
+    <body>
+        <div>
+            <p>A</p>
+            <p>B</p>
+            <p>C</p>
+            <p>D</p>
+        </div>
+        <div>
             <p>One</p>
             <p id="${MARKER}">Two</p>
             <p>Three</p>
@@ -39,5 +55,7 @@ module.exports = {
     template02,
     template03,
     template04,
-    template05
+    template05,
+    template06,
+    template07
 }
