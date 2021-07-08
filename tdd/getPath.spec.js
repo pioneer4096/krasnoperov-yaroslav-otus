@@ -3,77 +3,137 @@ const { JSDOM } = jsdom;
 const getPath = require("./getPath")
 const MARKER = 'marker'
 
-const template01 = `<!DOCTYPE html> <body></body>`
+function pathHelper(_template) {
+    const template = _template
+    const dom = new JSDOM(template)
+    const el = dom.window.document.getElementById(MARKER)
+    const path = getPath(el)
 
-describe('TDD01: testing template01 without any marker', () => {
+    const querySelectorAll = dom.window.document.querySelectorAll(path)
+    const querySelectorAllCount = querySelectorAll.length
+    const foundElement = querySelectorAll[0]
+
+    return {
+        template,
+        dom,
+        el,
+        path,
+        querySelectorAll,
+        querySelectorAllCount,
+        foundElement
+    }
+}
+
+describe('TDD01: testing template without any marker', () => {
+    const template = `
+    <!DOCTYPE html> 
+    <body></body>`
+
+
     it('should throw an exception', () => {
-        const dom = new JSDOM(template01);
-        const el = dom.window.document.getElementById(MARKER)
         expect(() => {
-            getPath(el)
+            pathHelper(template)
         }).toThrowError()
     })
 })
 
 
-const template02 = `<!DOCTYPE html> <body id="${MARKER}"></body>`
+describe('TDD02: testing template with marker on body', () => {
+    const template = `
+    <!DOCTYPE html> 
+    <body id="${MARKER}"></body>`
 
-describe('TDD02: testing template02 with marker on body', () => {
+    const helper = pathHelper(template)
+
     it('should return path to body', () => {
-        const dom = new JSDOM(template02);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body')
+        expect(helper.path).toBe('body')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })
 
-const template03 = `<!DOCTYPE html>
+
+describe('TDD03: testing template with only one p - tag', () => {
+    const template = `
+    <!DOCTYPE html>
     <body>
         <p id="${MARKER}">Two</p>
     </body>`
 
-describe('TDD03: testing template03 with only one p - tag', () => {
+    const helper = pathHelper(template)
+
     it('should return path "body p"', () => {
-        const dom = new JSDOM(template03);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body p')
+        expect(helper.path).toBe('body p')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })
 
-const template04 = `<!DOCTYPE html>
+
+describe('TDD04: testing template with few p - tags', () => {
+    const template = `
+    <!DOCTYPE html>
     <body>
         <p>One</p>
         <p id="${MARKER}">Two</p>
     </body>`
 
-describe('TDD04: testing template04 with few p - tags', () => {
-    it('should return path "body p:nth-child(1)"', () => {
-        const dom = new JSDOM(template04);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body p:nth-child(1)')
+    const helper = pathHelper(template)
+
+    it('should return path "body p:nth-child(2)"', () => {
+        expect(helper.path).toBe('body p:nth-child(2)')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })
 
-const template05 = `<!DOCTYPE html>
+
+describe('TDD05: testing template with one div contains one p - tag', () => {
+    const template = `
+    <!DOCTYPE html>
     <body>
         <div>
             <p id="${MARKER}">Two</p>
         </div>
     </body>`
 
-describe('TDD05: testing template05 with one div contains one p - tag', () => {
+    const helper = pathHelper(template)
+
     it('should return path "body div p"', () => {
-        const dom = new JSDOM(template05);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body div p')
+        expect(helper.path).toBe('body div p')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })
 
 
-const template06 = `<!DOCTYPE html>
+describe('TDD06: testing template with two div contains one and one p - tags', () => {
+    const template = `
+    <!DOCTYPE html>
     <body>
         <div>
             <p id="${MARKER}">Two</p>
@@ -83,16 +143,25 @@ const template06 = `<!DOCTYPE html>
         </div>
     </body>`
 
-describe('TDD06: testing template06 with two div contains one and one p - tags', () => {
-    it('should return path "body div:nth-child(0) p"', () => {
-        const dom = new JSDOM(template06);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body div:nth-child(0) p')
+    const helper = pathHelper(template)
+
+    it('should return path "body div:nth-child(1) p"', () => {
+        expect(helper.path).toBe('body div:nth-child(1) p')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })
 
-const template07 = `<!DOCTYPE html>
+
+describe('TDD07: testing template with two div contains few p - tags each', () => {
+    const template = `
+    <!DOCTYPE html>
     <body>
         <div>
             <p>A</p>
@@ -108,11 +177,17 @@ const template07 = `<!DOCTYPE html>
         </div>
     </body>`
 
-describe('TDD07: testing template07 with two div contains few p - tags each', () => {
-    it('should return path "body div:nth-child(1) p:nth-child(1)"', () => {
-        const dom = new JSDOM(template07);
-        const el = dom.window.document.getElementById(MARKER)
-        const path = getPath(el)
-        expect(path).toBe('body div:nth-child(1) p:nth-child(1)')
+    const helper = pathHelper(template)
+
+    it('should return path "body div:nth-child(2) p:nth-child(2)"', () => {
+        expect(helper.path).toBe('body div:nth-child(2) p:nth-child(2)')
+    })
+
+    it('querySelectorAll length === 1', () => {
+        expect(helper.querySelectorAllCount).toBe(1)
+    })
+
+    it('querySelectorAll finds the same element', () => {
+        expect(helper.foundElement.id).toBe(helper.el.id)
     })
 })

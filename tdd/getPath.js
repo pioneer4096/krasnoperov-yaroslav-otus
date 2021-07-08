@@ -25,22 +25,19 @@ const getPath = function(el) {
     }
 }
 
+
+
 const calculateElementPath = function(element, parent) {
     const elementTagName = getTagName(element)
     const childCount = parent.children.length
 
     if(childCount > 1) {
         const elIndex = [...parent.children].indexOf(element)
-        return `${elementTagName}:nth-child(${elIndex})`
+        return `${elementTagName}:nth-child(${elIndex + 1})`
     }
     else {
         return `${elementTagName}`
     }
-}
-
-const flushPath = function(path) {
-    const stringPath = getStringPath(path)
-    return `${TAG_BODY} ${stringPath}`
 }
 
 const getParent = function(el) {
@@ -58,6 +55,11 @@ const getTagName = function(el) {
 
 const getStringPath = function(path = []) {
     return path.map(p => p).reverse().join(' ')
+}
+
+const flushPath = function(path) {
+    const stringPath = getStringPath(path)
+    return `${TAG_BODY} ${stringPath}`
 }
 
 module.exports = getPath
