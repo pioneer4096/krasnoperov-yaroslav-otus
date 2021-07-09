@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/rss', async (req, res) => {
-    const ret = await axios.get('https://www.yahoo.com/news/rss')
+    // const ret = await axios.get('https://www.yahoo.com/news/rss')
+    const ret = await axios.get('https://www.thesun.co.uk/news/worldnews/feed')
     const json = parser.toJson(ret.data);
     console.log('json response = ', json)
     res.send(formatRssList())
