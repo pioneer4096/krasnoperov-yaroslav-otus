@@ -5,7 +5,7 @@ const getPath = function(el) {
         throw new Error('некорректный элемент в аргументе функции')
     }
 
-    if(getTagName(el) === TAG_BODY) {
+    if(isBody(el)) {
         return TAG_BODY
     }
     else {
