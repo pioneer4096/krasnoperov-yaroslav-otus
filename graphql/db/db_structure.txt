@@ -1,4 +1,6 @@
 Таблицы:
 1) rss - рассылки
-2) документы
+id title link description
 
+2) документы
+id title link original
