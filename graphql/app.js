@@ -1,26 +1,47 @@
 const express = require('express')
-const parser = require('xml2json');
-const formatRssList = require('./rssList')
-const formatDocs = require('./documents')
-const axios = require('axios')
+const DBServer = require('./db/DBServer')
+const Sender = require('./utils/Sender')
+const transformToDBFormat = require('./utils/transform.json.db')
+
 const app = express()
 const port = 3000
+
+const db = new DBServer()
+const sender = new Sender()
 
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.get('/rss', async (req, res) => {
-    // const ret = await axios.get('https://www.yahoo.com/news/rss')
-    const ret = await axios.get('https://www.thesun.co.uk/news/worldnews/feed')
-    const json = parser.toJson(ret.data);
-    console.log('json response = ', json)
-    res.send(formatRssList())
+app.post('/rss', async (req, res) => {
+
+    try {
+        const json = await sender.get('https://www.thesun.co.uk/news/worldnews/feed')
+        const jsonDB = transformToDBFormat(json)
+        db.addRss(jsonDB)
+    }
+    catch(e) {
+
+    }
 })
 
-app.get('/docs', (req, res) => {
-    res.send(formatDocs())
+app.get('/rss', async (req, res) => {
+    try {
+        const rss = await db.getRss()
+    }
+    catch (e) {
+
+    }
+})
+
+app.get('/docs', async (req, res) => {
+    try {
+        const rss = await db.getDocuments()
+    }
+    catch (e) {
+
+    }
 })
 
 app.listen(port, () => {

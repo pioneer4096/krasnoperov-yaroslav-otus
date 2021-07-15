@@ -26,46 +26,25 @@ function main() {
         .then(data => {
             console.log('Filled data successfully...')
         })
-        /*.then(() => projectRepo.getById(projectId))
-        .then((project) => {
-            console.log(`\nRetreived project from database`)
-            console.log(`project id = ${project.id}`)
-            console.log(`project name = ${project.name}`)
-            return projectRepo.getTasks(project.id)
+        .then(() => rssRepo.getById(rssId))
+        .then((rss) => {
+            console.log(`\nRetreived project from database rss = ${rss}`)
+            console.log(`project id = ${rss.id}`)
+            console.log(`project name = ${rss.title}`)
+            return docsRepo.getDocuments(rssId)
         })
-        .then((tasks) => {
-            console.log('\nRetrieved project tasks from database')
-            return new Promise((resolve, reject) => {
-                tasks.forEach((task) => {
-                    console.log(`task id = ${task.id}`)
-                    console.log(`task name = ${task.name}`)
-                    console.log(`task description = ${task.description}`)
-                    console.log(`task isComplete = ${task.isComplete}`)
-                    console.log(`task projectId = ${task.projectId}`)
-                })
+        .then((docs) => {
+            console.log('\nRetrieved documents from database')
+            docs.forEach((task) => {
+                console.log(`doc id = ${task.id}`)
+                console.log(`doc title = ${task.title}`)
+                console.log(`doc link = ${task.link}`)
             })
-            resolve('success')
-        })*/
+        })
         .catch((err) => {
-            console.log('Error: ')
+            console.log('Error: ', err)
             console.log(JSON.stringify(err))
         })
-}
-
-function putDocument() {
-    const dao = new AppDAO('./database.sqlite3')
-    const docsRepo = new DocumentsRepository(dao)
-
-    const doc = documents[0]
-    docsRepo
-        .create(doc.title, doc.link, JSON.stringify(doc), 1)
-        .then((data) => {
-            console.log('added doc doc0')
-        })
-        .catch((err) => {
-            console.log('err = ', err)
-        })
-
 }
 
 main()

@@ -20,6 +20,10 @@ class RssRepository {
             [title, link, description])
     }
 
+    getById(id) {
+        return this.dao.get(`SELECT * FROM rss where id = ?`, [id])
+    }
+
     getAll() {
         return this.dao.all(`SELECT * FROM rss`)
     }
