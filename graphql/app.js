@@ -6,7 +6,7 @@ const DocumentsTemplate = require('./utils/DocumentsTemplate')
 const RssTemplate = require('./utils/RssTemplate')
 
 const app = express()
-const port = 3000
+const APP_PORT = 3000
 
 const db = new DBServer()
 const sender = new Sender()
@@ -23,7 +23,7 @@ app.post('/rss', async (req, res) => {
     try {
         const json = await sender.get('https://www.thesun.co.uk/news/worldnews/feed')
         const jsonDB = transformToDBFormat(json)
-        db.addRss(jsonDB)
+        const response = await db.addRss(jsonDB)
         res.status(200)
     }
     catch(e) {
@@ -53,6 +53,6 @@ app.get('/docs', async (req, res) => {
     }
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(APP_PORT, () => {
+    console.log(`Example app listening at http://localhost:${APP_PORT}`)
 })
