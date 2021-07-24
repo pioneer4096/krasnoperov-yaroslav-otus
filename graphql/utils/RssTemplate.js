@@ -1,6 +1,6 @@
 class RssTemplate {
     static toTemplate(rss) {
-        return rss
+        return `<div>${JSON.stringify(rss)}</div>`
     }
 }
 

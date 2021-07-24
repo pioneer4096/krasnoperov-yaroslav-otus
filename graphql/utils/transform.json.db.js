@@ -1,7 +1,9 @@
-function transformToDBFormat(json = {}) {
-    const channel = json?.rss?.channel ? json.rss.channel : null
+const errors = require('../reference/errors')
+
+const transformToDBFormat = (json = {}) => {
+    const channel = json && json.rss && json.rss.channel ? json.rss.channel : null
     if(!channel) {
-        throw new Error('')
+        throw new Error(errors.NO_CHANNEL_TAG)
     }
 
     const rss = {

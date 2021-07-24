@@ -1,6 +1,6 @@
 class DocumentsTemplate {
     static toTemplate(docs) {
-        return docs
+        return `<div>${JSON.stringify(docs)}</div>`
     }
 }
 
