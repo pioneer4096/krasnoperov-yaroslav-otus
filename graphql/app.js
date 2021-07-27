@@ -1,13 +1,11 @@
-const express = require('express')
 const DBServer = require('./db/DBServer')
-const start = require('./start')
+const makeApp = require('./app.provider')
 
-const APP_PORT = 3000
-const app = express()
 const db = new DBServer()
 
 db.init().then(() => {
-    start(app, db, APP_PORT)
+    const app = makeApp(db)
+    app.listen(3000)
 }).catch(e => {
     console.error('Cant initialize DataBase')
 })

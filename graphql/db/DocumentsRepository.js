@@ -24,6 +24,14 @@ class DocumentsRepository {
     }
 
     /**
+     * Truncate analog for sqlite
+     * @return {Promise}
+     * **/
+    clear() {
+        return this.dao.run(`DELETE FROM documents`)
+    }
+
+    /**
      * Insert new document into table
      * @param {string} title
      * @param {string} link

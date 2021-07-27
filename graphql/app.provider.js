@@ -1,3 +1,4 @@
+const express = require('express')
 const Sender = require('./utils/Sender')
 const DocumentsTemplate = require('./utils/DocumentsTemplate')
 const RssTemplate = require('./utils/RssTemplate')
@@ -8,7 +9,9 @@ const routes = require('./reference/routes')
 const errors = require('./reference/errors')
 const sender = new Sender()
 
-const start = (app, db, port = 3000) => {
+
+const makeApp = (db) => {
+    const app = express()
     app.get(routes.root, (req, res) => {
         res.send('<h1>RSS parser project</h1>')
     })
@@ -66,11 +69,7 @@ const start = (app, db, port = 3000) => {
             errorResponse(res)
         }
     })
-
-    app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`)
-    })
 }
 
 
-module.exports = start
+module.exports = makeApp

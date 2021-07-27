@@ -19,6 +19,14 @@ class RssRepository {
     }
 
     /**
+     * Truncate analog for sqlite
+     * @return {Promise}
+     * **/
+    clear() {
+        return this.dao.run(`DELETE FROM rss`)
+    }
+
+    /**
      * Inserts new rss in table
      * @param {string} title
      * @param {string} link

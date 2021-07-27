@@ -18,6 +18,11 @@ class DBServer {
         console.log('DataBase successfully initialized')
     }
 
+    async clearAll() {
+        await this.rssRepo.clear()
+        await this.docsRepo.clear()
+    }
+
     // TODO сюда неплохо бы транзакцию прикрутить
     async addRss(json = {}) {
         const {rss, documents} = json
