@@ -9,9 +9,9 @@ const routes = require('./reference/routes')
 const errors = require('./reference/errors')
 const sender = new Sender()
 
-
 const makeApp = (db) => {
     const app = express()
+
     app.get(routes.root, (req, res) => {
         res.send('<h1>RSS parser project</h1>')
     })
@@ -69,6 +69,8 @@ const makeApp = (db) => {
             errorResponse(res)
         }
     })
+
+    return app
 }
 
 
