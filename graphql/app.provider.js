@@ -26,7 +26,7 @@ const makeApp = (db) => {
             const json = await sender.get(url)
             const jsonDB = transformToDBFormat(json)
             const response = await db.addRss(jsonDB)
-            res.status(200).send(`ok ${new Date().toString()}`)
+            res.status(200).send(`ok current date: ${new Date().toString()}`)
         }
         catch (e) {
             errorResponse(res, 500, e.message)
