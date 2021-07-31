@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+                                           xmlns:content="http://purl.org/rss/1.0/modules/content/"
+                                           xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+                                           xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                           xmlns:atom="http://www.w3.org/2005/Atom"
+                                           xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+                                           xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+
+                                           xmlns:georss="http://www.georss.org/georss"
+                                           xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+    <channel>
+        <title>angular is powerful</title>
+        <link>https://angular.io/</link>
+        <description>The modern web developer's platform</description>
+        <item>
+            <title>rxjs</title>
+            <link>https://angular.io/guide/rx-library</link>
+            <pubDate>Fri, 09 Jul 2021 15:35:15 +0000</pubDate>
+        </item>
+        <item>
+            <title>material</title>
+            <link>https://material.angular.io/</link>
+            <pubDate>Fri, 09 Jul 2021 15:35:15 +0000</pubDate>
+        </item>
+        <item>
+            <title>universal</title>
+            <link>https://angular.io/guide/universal</link>
+            <pubDate>Fri, 09 Jul 2021 15:35:15 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
