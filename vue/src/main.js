@@ -3,6 +3,9 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
 
+import VueCountdownTimer from 'vuejs-countdown-timer'
+Vue.use(VueCountdownTimer)
+
 Vue.config.productionTip = false
 
 new Vue({
