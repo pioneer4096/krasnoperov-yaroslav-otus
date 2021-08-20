@@ -40,7 +40,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-case-declarations": "off",
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",

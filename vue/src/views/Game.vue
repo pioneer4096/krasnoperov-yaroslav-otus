@@ -19,7 +19,8 @@
       </div>
     </div>
     <br><br><br>
-    <div style="text-align: center;" class="example">
+    <div v-if="example"  style="text-align: center;" class="example">
+      <span v-for="(operand, index) in example.operands" :key="`op_${index}`">${{operand}}  ${{example.operation}}</span>
       {{first}} + <input type="text" v-model="second"> = {{sum}}
     </div>
     <br><br><br>
