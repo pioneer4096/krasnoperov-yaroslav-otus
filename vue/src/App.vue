@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Settings</router-link> |
-      <router-link to="/game">Game</router-link>
-    </div>
+    <br><br><br><br>
     <router-view/>
   </div>
 </template>

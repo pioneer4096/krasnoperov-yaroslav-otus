@@ -4,9 +4,9 @@
         <br><br>
 
         <div style="text-align: left;">
-            <p>Добро пожаловать на 24 тренировочный день, </p>
-            <p>Ваш последний результат - решено 10 из 25.</p>
-            <p>Общая точность 80%.</p>
+            <p>Добро пожаловать на {{playDay}} тренировочный день, </p>
+            <p>Ваш последний результат - решено {{correctSolved}} из {{all}}.</p>
+            <p>Общая точность {{accuracy}}%.</p>
         </div>
         <br><br><br>
 
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
 
     export default {
         name: 'Settings',
@@ -112,10 +113,10 @@
         methods: {
             play() {
                 if(this.validate()) {
-                    this.applySettings({
+                    this.$store.commit('startGame', {
                         duration: this.duration.value,
                         complexity: this.complexity.value,
-                        options: this.options
+                        options: Object.keys(this.options).map(key => this.options[key] ? key : null).filter(k => k)
                     })
                     this.$router.push('game')
                 }
@@ -128,10 +129,10 @@
                 }
 
                 return valid
-            },
-            applySettings(settings) {
-                console.log('applied settings = ', JSON.stringify(settings))
             }
+        },
+        computed: {
+            ...mapGetters(['playDay', 'accuracy', 'correctSolved', 'all'])
         }
     }
 </script>

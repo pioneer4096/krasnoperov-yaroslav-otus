@@ -237,6 +237,7 @@
                     const isCorrect = (+this.x === this.example.x)
                     const msg = isCorrect ? 'Верно' : 'Ошибка'
                     alert(msg)
+                    this.$store.commit('updateStat', isCorrect)
                     this.generate()
                 }
             },
