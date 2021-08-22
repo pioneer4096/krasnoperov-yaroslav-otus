@@ -6,12 +6,13 @@ const OPERANDS_COUNT = 2    // число операндов, число зав�
 
 export function generate() {
     // const op = randomElement(Object.keys(operation))
-    const op = operation.sum
+    const op = randomElement([operation.sum, operation.sub, operation.mul, operation.div])
 
+    let operands, result
     switch(op) {
         case operation.sum:
-            const operands = new Array(OPERANDS_COUNT).fill(0).map(_ => randomInt(MAX))
-            const result = operands.reduce((total, x) => total + x, 0)
+            operands = new Array(OPERANDS_COUNT).fill(0).map(_ => randomInt(MAX))
+            result = operands.reduce((total, x) => total + x, 0)
 
             return {
                 x: operands[operands.length - 1],
@@ -21,13 +22,38 @@ export function generate() {
             }
 
         case operation.sub:
-            break;
+            operands = new Array(OPERANDS_COUNT).fill(0).map(_ => randomInt(MAX))
+            result = operands.reduce((total, x) => total - x, 2 * operands[0])
+
+            return {
+                x: operands[operands.length - 1],
+                operands: operands.slice(0, -1),
+                result,
+                operation: op
+            }
 
         case operation.mul:
-            break;
+            operands = new Array(OPERANDS_COUNT).fill(0).map(_ => randomInt(MAX))
+            result = operands.reduce((total, x) => total * x, 1)
+
+            return {
+                x: operands[operands.length - 1],
+                operands: operands.slice(0, -1),
+                result,
+                operation: op
+            }
 
         case operation.div:
-            break;
+            operands = new Array(OPERANDS_COUNT).fill(0).map(_ => randomInt(MAX))
+            result = operands.reduce((total, x) => total * x, 1)
+
+
+            return {
+                x: operands[operands.length - 1],
+                operands: operands.slice(1, -1).concat(result),
+                result: operands[0],
+                operation: op
+            }
 
         case operation.degree:
             break;

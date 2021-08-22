@@ -5,3 +5,11 @@ export const operation = {
     div: 'div',
     degree: 'degree'
 }
+
+export const operationSign = {
+    sum: '+',
+    sub: '-',
+    mul: '*',
+    div: '/',
+    degree: '^'
+}
