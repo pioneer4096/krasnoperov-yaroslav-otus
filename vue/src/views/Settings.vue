@@ -1,14 +1,14 @@
 <template>
     <div class="settings">
         <h1 style="text-align: left">Привет!</h1>
-        <br><br>
+        <br>
 
         <div style="text-align: left;">
             <p>Добро пожаловать на {{playDay}} тренировочный день, </p>
             <p>Ваш последний результат - решено {{correctSolved}} из {{all}}.</p>
             <p>Общая точность {{accuracy}}%.</p>
         </div>
-        <br><br><br>
+        <br>
 
         <form onsubmit.prevent="" style="text-align: left;">
             <h2>Настройки</h2>
