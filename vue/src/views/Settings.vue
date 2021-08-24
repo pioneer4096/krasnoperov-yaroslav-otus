@@ -1,5 +1,6 @@
 <template>
     <div class="settings">
+        <br>
         <h1 style="text-align: left">Привет!</h1>
         <br>
 
@@ -48,7 +49,8 @@
 
                 Сложность {{complexity.value}}.
             </div>
-
+            <br>
+            <h2>Типы операций</h2>
             <div>
                 <v-checkbox
                         v-model="options.sum"
@@ -56,26 +58,30 @@
                 ></v-checkbox>
 
                 <v-checkbox
+                        class="mt-0"
                         v-model="options.sub"
                         label="Разность"
                 ></v-checkbox>
 
                 <v-checkbox
+                        class="mt-0"
                         v-model="options.mul"
                         label="Умножение"
                 ></v-checkbox>
 
                 <v-checkbox
+                        class="mt-0"
                         v-model="options.div"
                         label="Деление"
                 ></v-checkbox>
 
                 <v-checkbox
+                        class="mt-0"
                         v-model="options.degree"
                         label="Возведение в степень"
                 ></v-checkbox>
             </div>
-            <br><br>
+            <br>
             <p style="text-align: right">
                 <v-btn @click="play">Играть!</v-btn>
             </p>

@@ -11,5 +11,7 @@ export default {
             state.options = settings.options || []
         }
     },
-    getters: {}
+    getters: {
+        getGameOptions: s => ({...s})
+    }
 }
