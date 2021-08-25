@@ -282,7 +282,7 @@
                     const msg = isCorrect ? 'Верно' : 'Ошибка'
                     alert(msg)
                     this.$store.commit('updateStat', isCorrect)
-                    this.generate()
+                    this.generate(this.gameOptions)
                 }
             },
             pressBtn(val) {

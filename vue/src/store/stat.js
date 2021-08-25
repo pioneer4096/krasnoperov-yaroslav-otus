@@ -1,8 +1,10 @@
+import {initialState} from '../reference/stat.initial.state'
+import {GameStorage} from '../utils/GameStorage'
+const storage = new GameStorage('stat', initialState)
+
 export default {
     state: {
-        gameStart: 0,
-        correctSolved: 0,
-        all: 0,
+        ...storage.get()
     },
     mutations: {
         updateStat(state, isCorrect) {
@@ -13,6 +15,8 @@ export default {
                 state.correctSolved = state.correctSolved + 1
             }
             state.all = state.all + 1
+
+            storage.update({...state})
         }
     },
     getters: {

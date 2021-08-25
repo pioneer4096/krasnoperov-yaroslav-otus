@@ -1,13 +1,10 @@
-import { initialState } from '@/reference/initial.state'
 import { Storage } from './Storage'
 
 export class GameStorage extends Storage {
-    constructor() {
+    constructor(userKey, initialState) {
         super()
-    }
-
-    setUserKey(userKey) {
-        this.key = `${userKey}:settings`
+        this.key = `vue-calc-game:${userKey}`
+        this.initialState = initialState
     }
 
     get() {
@@ -16,7 +13,8 @@ export class GameStorage extends Storage {
             : {}
 
         return {
-            ...initialState
+            ...this.initialState,
+            ...savedState
         }
     }
 }
