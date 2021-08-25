@@ -4,9 +4,8 @@ import {randomElement, randomInt} from './random.numbers'
 const MAX = 10 // будет зависеть от сложности
 const OPERANDS_COUNT = 2    // число операндов, число зависит от сложности
 
-export function generate() {
-    // const op = randomElement(Object.keys(operation))
-    const op = randomElement([operation.sum, operation.sub, operation.mul, operation.div])
+export function generate(gameSettings) {
+    const op = randomElement(gameSettings.options)
 
     let operands, result
     switch(op) {

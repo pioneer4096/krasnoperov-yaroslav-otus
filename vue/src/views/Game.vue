@@ -241,6 +241,11 @@
             if(isValid) {
                 this.gameOptions = gameOptions
                 this.generate(gameOptions)
+
+                this.startTimer(gameOptions.duration)
+            }
+            else {
+                this.setErrorState()
             }
         },
         data() {
@@ -258,8 +263,15 @@
             }
         },
         methods: {
-            validateOptions() {
-                return true
+            validateOptions(gameOptions) {
+                if(gameOptions) {
+                    const validDuration = gameOptions.duration && (typeof gameOptions.duration === 'number')
+                    const validComplexity = gameOptions.complexity && (typeof gameOptions.duration === 'number')
+                    const validOptions = Array.isArray(gameOptions.options) && gameOptions.options.length
+
+                    return validDuration && validComplexity && validOptions
+                }
+                return false
             },
             cancel() {
                 this.$router.push('/')
@@ -274,7 +286,6 @@
                 this.example = generate(options)
                 this.x = ''
                 this.result = this.example.result
-                this.startTimer(options.duration)
             },
             check() {
                 if(this.x) {
@@ -302,6 +313,9 @@
             restart() {
                 this.gameOver = false
                 this.generate(this.gameOptions)
+            },
+            setErrorState() {
+                console.error('Некоректные параметры игры, попробуйте вернуться на экран настройки и начать игру заново.')
             }
         },
         filters: {

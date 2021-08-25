@@ -22,7 +22,7 @@ export default {
     getters: {
         playDay: s => {
             return s.gameStart
-                ? Math.floor((Date.now() - s.gameStart) / 3600 /24) + 1
+                ? Math.floor((Date.now() - s.gameStart) / 1000 / 3600 / 24) + 1
                 : 1
         },
         accuracy: s => {
