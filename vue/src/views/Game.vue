@@ -19,213 +19,234 @@
                 </vue-countdown-timer>
             </div>
         </div>
-        <div v-if="!gameOver">
-            <br><br><br>
-            <div v-if="example" style="text-align: center;" class="example">
-            <span v-for="(operand, index) in example.operands"
-                  :key="`op_${index}`">{{operand}}  {{example.operation | operationSignFilter}}</span>
-                <v-text-field class="x-field" v-model="x"></v-text-field> = {{result}}
+
+        <div class="game-field-wrapper">
+            <div v-if="areValidGameOptions" class="correct-game-options">
+                <div v-if="!gameOver" class="game-active">
+                    <br><br><br>
+                    <div v-if="example" style="text-align: center;" class="example">
+                        <span v-for="(operand, index) in example.operands"
+                            :key="`op_${index}`">{{operand}}  {{example.operation | operationSignFilter}}
+                        </span>
+                        <v-text-field class="x-field" v-model="x"></v-text-field>
+                        = {{result}}
+                        <span v-if="answerStatus !== null" class="answer-status ml-3">
+                            <span v-if="answerStatus === true" class="correct-answer">верно</span>
+                            <span v-else class="incorrect-answer">неправильно</span>
+                        </span>
+                    </div>
+                    <br><br><br>
+                    <div class="calc-btn-wrapper">
+                        <v-row>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('1')"
+                                        fab
+                                        dark
+                                        class="mx-2 calc-btn pa-2"
+                                        color="pink"
+                                >
+                                    1
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('2')"
+                                        class="mx-2 calc-btn pa-2"
+                                        fab
+                                        dark
+                                        color="primary"
+                                >
+                                    2
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('3')"
+                                        class="mx-2 calc-btn"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    3
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="backspace"
+                                        class="mx-2 calc-btn-last"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    &lt;
+                                </v-btn>
+                            </v-col>
+
+                        </v-row>
+
+                        <v-row>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('4')"
+                                        fab
+                                        dark
+                                        class="mx-2 calc-btn pa-2"
+                                        color="pink"
+                                >
+                                    4
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('5')"
+                                        class="mx-2 calc-btn pa-2"
+                                        fab
+                                        dark
+                                        color="primary"
+                                >
+                                    5
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('6')"
+                                        class="mx-2 calc-btn"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    6
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        class="mx-2 calc-btn-last"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    &gt;
+                                </v-btn>
+                            </v-col>
+
+                        </v-row>
+
+                        <v-row>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('7')"
+                                        fab
+                                        dark
+                                        class="mx-2 calc-btn pa-2"
+                                        color="pink"
+                                >
+                                    7
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('8')"
+                                        class="mx-2 calc-btn pa-2"
+                                        fab
+                                        dark
+                                        color="primary"
+                                >
+                                    8
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('9')"
+                                        class="mx-2 calc-btn"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    9
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        class="mx-2 calc-btn-last"
+                                        fab
+                                        dark
+
+                                        color="primary"
+                                >
+                                    ?
+                                </v-btn>
+                            </v-col>
+
+                        </v-row>
+
+                        <v-row>
+                            <v-col class="xl3"></v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        @click="pressBtn('0')"
+                                        class="mx-2 calc-btn pa-2"
+                                        fab
+                                        dark
+                                        color="primary"
+                                >
+                                    0
+                                </v-btn>
+                            </v-col>
+                            <v-col class="xl3"></v-col>
+                            <v-col class="xl3">
+                                <v-btn
+                                        class="mx-2 calc-btn-last"
+                                        fab
+                                        dark
+                                        color="primary"
+                                        @click="check()"
+                                >
+                                    =
+                                </v-btn>
+                            </v-col>
+
+                        </v-row>
+
+                    </div>
+                    <br><br>
+                </div>
+                <div v-else class="game-over">
+                    <v-alert class="mt-10 game-over-alert"
+                             outlined
+                             type="error"
+                    >
+                        Игра окончена
+                    </v-alert>
+
+                    <br>
+                    <v-btn @click="restart" color="primary">
+                        Перезапустить
+                        <v-icon
+                                right
+                                dark
+                        >
+                            mdi-restart
+                        </v-icon>
+                    </v-btn>
+                </div>
             </div>
-            <br><br><br>
-            <div class="calc-btn-wrapper">
-                <v-row>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('1')"
-                                fab
-                                dark
-                                class="mx-2 calc-btn pa-2"
-                                color="pink"
-                        >
-                            1
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('2')"
-                                class="mx-2 calc-btn pa-2"
-                                fab
-                                dark
-                                color="primary"
-                        >
-                            2
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('3')"
-                                class="mx-2 calc-btn"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            3
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="backspace"
-                                class="mx-2 calc-btn-last"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            &lt;
-                        </v-btn>
-                    </v-col>
-
-                </v-row>
-
-                <v-row>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('4')"
-                                fab
-                                dark
-                                class="mx-2 calc-btn pa-2"
-                                color="pink"
-                        >
-                            4
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('5')"
-                                class="mx-2 calc-btn pa-2"
-                                fab
-                                dark
-                                color="primary"
-                        >
-                            5
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('6')"
-                                class="mx-2 calc-btn"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            6
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                class="mx-2 calc-btn-last"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            &gt;
-                        </v-btn>
-                    </v-col>
-
-                </v-row>
-
-                <v-row>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('7')"
-                                fab
-                                dark
-                                class="mx-2 calc-btn pa-2"
-                                color="pink"
-                        >
-                            7
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('8')"
-                                class="mx-2 calc-btn pa-2"
-                                fab
-                                dark
-                                color="primary"
-                        >
-                            8
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('9')"
-                                class="mx-2 calc-btn"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            9
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                class="mx-2 calc-btn-last"
-                                fab
-                                dark
-
-                                color="primary"
-                        >
-                            ?
-                        </v-btn>
-                    </v-col>
-
-                </v-row>
-
-                <v-row>
-                    <v-col class="xl3"></v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                @click="pressBtn('0')"
-                                class="mx-2 calc-btn pa-2"
-                                fab
-                                dark
-                                color="primary"
-                        >
-                            0
-                        </v-btn>
-                    </v-col>
-                    <v-col class="xl3"></v-col>
-                    <v-col class="xl3">
-                        <v-btn
-                                class="mx-2 calc-btn-last"
-                                fab
-                                dark
-                                color="primary"
-                                @click="check()"
-                        >
-                            =
-                        </v-btn>
-                    </v-col>
-
-                </v-row>
-
-            </div>
-            <br><br>
-        </div>
-        <div v-else>
-            <v-alert class="mt-10 game-over-alert"
-                    outlined
-                    type="error"
-            >
-                Игра окончена
-            </v-alert>
-
-            <br>
-            <v-btn @click="restart" color="primary">
-                Перезапустить
-                <v-icon
-                        right
-                        dark
+            <div v-else class="incorrect-game-options">
+                <v-alert class="mt-10 game-over-alert"
+                         outlined
+                         type="error"
                 >
-                    mdi-restart
-                </v-icon>
-            </v-btn>
+                    ОШИБКА: некорректные настройки игры, попробуйте вернуться на страницу настроек, проверить их
+                    корректность и перезапустить игру
+                </v-alert>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -236,26 +257,18 @@
     export default {
         name: 'Settings',
         mounted() {
-            const gameOptions = this.$store.getters.getGameOptions
-            const isValid = this.validateOptions(gameOptions)
-            if(isValid) {
-                this.gameOptions = gameOptions
-                this.generate(gameOptions)
-
-                this.startTimer(gameOptions.duration)
-            }
-            else {
-                this.setErrorState()
-            }
+            this.init()
         },
         data() {
             return {
                 gameOptions: null,
+                areValidGameOptions: false,
                 timer: {
                     start: false,
                     startTime: null,
                     endTime: null
                 },
+                answerStatus: '',
                 gameOver: false,
                 x: '',
                 result: 0,
@@ -263,8 +276,21 @@
             }
         },
         methods: {
+            init() {
+                const gameOptions = this.$store.getters.getGameOptions
+                const isValid = this.validateOptions(gameOptions)
+                if (isValid) {
+                    this.areValidGameOptions = true
+                    this.gameOptions = gameOptions
+                    this.generate(gameOptions)
+
+                    this.startTimer(gameOptions.duration)
+                } else {
+                    this.areValidGameOptions = false
+                }
+            },
             validateOptions(gameOptions) {
-                if(gameOptions) {
+                if (gameOptions) {
                     const validDuration = gameOptions.duration && (typeof gameOptions.duration === 'number')
                     const validComplexity = gameOptions.complexity && (typeof gameOptions.duration === 'number')
                     const validOptions = Array.isArray(gameOptions.options) && gameOptions.options.length
@@ -283,26 +309,32 @@
                 this.timer.start = true
             },
             generate(options) {  // создать пример
+                this.answerStatus = null
                 this.example = generate(options)
                 this.x = ''
                 this.result = this.example.result
             },
             check() {
-                if(this.x) {
+                if (this.x) {
                     const isCorrect = (+this.x === this.example.x)
-                    const msg = isCorrect ? 'Верно' : 'Ошибка'
-                    alert(msg)
+                    this.highlightResult(isCorrect)
                     this.$store.commit('updateStat', isCorrect)
-                    this.generate(this.gameOptions)
+
+                    setTimeout(() => {
+                        this.generate(this.gameOptions)
+                    }, 1000)
                 }
             },
+            highlightResult(isCorrect) {
+                this.answerStatus =  Boolean(isCorrect)
+            },
             pressBtn(val) {
-                if(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ].includes(val)) {
+                if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(val)) {
                     this.x += val
                 }
             },
             backspace() {
-                if(this.x.length) {
+                if (this.x.length) {
                     this.x = this.x.slice(0, -1)
                 }
             },
@@ -313,9 +345,6 @@
             restart() {
                 this.gameOver = false
                 this.generate(this.gameOptions)
-            },
-            setErrorState() {
-                console.error('Некоректные параметры игры, попробуйте вернуться на экран настройки и начать игру заново.')
             }
         },
         filters: {
@@ -360,5 +389,18 @@
     .game-over-alert {
         font-weight: bold;
         font-size: 1.2rem;
+    }
+
+    .answer-status {
+        font-weight: bold;
+        transition: 1s all ease;
+    }
+
+    .correct-answer {
+       color: green;
+    }
+
+    .incorrect-answer {
+        color: red;
     }
 </style>
