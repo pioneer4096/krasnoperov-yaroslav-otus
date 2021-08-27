@@ -55,6 +55,16 @@ export function generate(gameSettings) {
             }
 
         case operation.degree:
-            break;
+            const base = randomInt(MAX)
+            const degree = randomInt(MAX)    // ищем степень числа
+            result = Math.pow(base, degree)
+
+
+            return {
+                degree,
+                operands: [base],
+                result,
+                operation: op
+            }
     }
 }

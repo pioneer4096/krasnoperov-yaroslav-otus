@@ -12,9 +12,17 @@ export default {
                 state.gameStart = Date.now()
             }
             if(isCorrect) {
-                state.correctSolved = state.correctSolved + 1
+                state.correctSolved++
+                state.lastSolved++
             }
-            state.all = state.all + 1
+            state.all++
+            state.lastCount++
+
+            storage.update({...state})
+        },
+        newGameStarted(state) {
+            state.lastCount = 0
+            state.lastSolved = 0
 
             storage.update({...state})
         }
@@ -29,7 +37,7 @@ export default {
             const accuracy =  s.all ? (s.correctSolved * 100 / s.all) : 0
             return accuracy.toFixed(0)
         },
-        correctSolved: s => s.correctSolved,
-        all: s => s.all
+        lastSolved: s => s.lastSolved,
+        lastCount: s => s.lastCount
     }
 }

@@ -6,7 +6,7 @@
 
         <div style="text-align: left;">
             <p>Добро пожаловать на {{playDay}} тренировочный день, </p>
-            <p>Ваш последний результат - решено {{correctSolved}} из {{all}}.</p>
+            <p>Ваш последний результат - решено {{lastSolved}} из {{lastCount}}.</p>
             <p>Общая точность {{accuracy}}%.</p>
         </div>
         <br>
@@ -138,7 +138,7 @@
             }
         },
         computed: {
-            ...mapGetters(['playDay', 'accuracy', 'correctSolved', 'all'])
+            ...mapGetters(['playDay', 'accuracy', 'lastSolved', 'lastCount'])
         }
     }
 </script>

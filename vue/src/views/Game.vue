@@ -282,12 +282,15 @@
                 if (isValid) {
                     this.areValidGameOptions = true
                     this.gameOptions = gameOptions
-                    this.generate(gameOptions)
-
-                    this.startTimer(gameOptions.duration)
+                    this.startPlay(gameOptions)
                 } else {
                     this.areValidGameOptions = false
                 }
+            },
+            startPlay(gameOptions) {
+                this.$store.commit('newGameStarted')
+                this.generate(gameOptions)
+                this.startTimer(gameOptions.duration)
             },
             validateOptions(gameOptions) {
                 if (gameOptions) {
@@ -344,7 +347,7 @@
             },
             restart() {
                 this.gameOver = false
-                this.generate(this.gameOptions)
+                this.startPlay(this.gameOptions)
             }
         },
         filters: {
@@ -394,6 +397,8 @@
     .answer-status {
         font-weight: bold;
         transition: 1s all ease;
+        position: absolute;
+        margin-top: 20px;
     }
 
     .correct-answer {
