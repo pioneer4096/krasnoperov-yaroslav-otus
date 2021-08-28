@@ -251,7 +251,7 @@
 </template>
 
 <script>
-    import {generate} from '../utils/generate.example'
+    import {generate, checkExample} from '../utils/generate.example'
     import {operationSign} from '../reference/operations'
 
     export default {
@@ -319,7 +319,7 @@
             },
             check() {
                 if (this.x) {
-                    const isCorrect = (+this.x === this.example.x)
+                    const isCorrect = checkExample(this.example, +this.x)
                     this.highlightResult(isCorrect)
                     this.$store.commit('updateStat', isCorrect)
 
