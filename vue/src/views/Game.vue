@@ -74,7 +74,7 @@
                             </v-col>
                             <v-col class="xl3">
                                 <v-btn
-                                        @click="backspace"
+                                        @click="pressBtn('<')"
                                         class="mx-2 calc-btn-last"
                                         fab
                                         dark
@@ -124,10 +124,10 @@
                             </v-col>
                             <v-col class="xl3">
                                 <v-btn
+                                        @click="pressBtn('>')"
                                         class="mx-2 calc-btn-last"
                                         fab
                                         dark
-
                                         color="primary"
                                 >
                                     &gt;
@@ -173,10 +173,10 @@
                             </v-col>
                             <v-col class="xl3">
                                 <v-btn
+                                        @click="pressBtn('?')"
                                         class="mx-2 calc-btn-last"
                                         fab
                                         dark
-
                                         color="primary"
                                 >
                                     ?
@@ -205,7 +205,7 @@
                                         fab
                                         dark
                                         color="primary"
-                                        @click="check()"
+                                        @click="pressBtn('=')"
                                 >
                                     =
                                 </v-btn>
@@ -247,6 +247,49 @@
             </div>
         </div>
 
+        <v-dialog
+                v-model="showHelpDialog"
+                max-width="700"
+                class="help-dialog"
+        >
+            <v-card>
+                <v-card-title class="text-h5">
+                    Справочная информация об игре "вычисли значение"
+                </v-card-title>
+
+                <v-card-text>
+                    <p class="text-left">
+                        Игра состоит в том, чтобы решать примеры на время.
+                    </p>
+                    <p class="text-left">
+                        Игра идет пока таймер обратного отсчета не равен нулю или пользователь не нажал кнопку "Отмена".
+                    </p>
+                    <p class="text-left">
+                        Введите число, нажмите знак '=', после чего будет указано, верный ответ или нет.
+                    </p>
+                    <p class="text-left">
+                        Кнопка '&lt;' декрементирует введенное число.
+                    </p>
+                    <p class="text-left">
+                        Кнопка '&gt;' инкрементирует введенное число.
+                    </p>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                            color="green darken-1"
+                            text
+                            @click="showHelpDialog = false"
+                    >
+                        OK
+                    </v-btn>
+
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </div>
 </template>
 
@@ -268,6 +311,7 @@
                     startTime: null,
                     endTime: null
                 },
+                showHelpDialog: false,
                 answerStatus: '',
                 gameOver: false,
                 x: '',
@@ -289,7 +333,7 @@
             },
             startPlay(gameOptions) {
                 this.$store.commit('newGameStarted')
-                this.generate(gameOptions)
+                this.generateExample(gameOptions)
                 this.startTimer(gameOptions.duration)
             },
             validateOptions(gameOptions) {
@@ -311,20 +355,20 @@
                 this.timer.endTime = now + duration * 60 * 1000
                 this.timer.start = true
             },
-            generate(options) {  // создать пример
+            generateExample(options) {  // создать пример
                 this.answerStatus = null
                 this.example = generate(options)
                 this.x = ''
                 this.result = this.example.result
             },
-            check() {
+            checkExample() {
                 if (this.x) {
                     const isCorrect = checkExample(this.example, +this.x)
                     this.highlightResult(isCorrect)
                     this.$store.commit('updateStat', isCorrect)
 
                     setTimeout(() => {
-                        this.generate(this.gameOptions)
+                        this.generateExample(this.gameOptions)
                     }, 1000)
                 }
             },
@@ -335,10 +379,23 @@
                 if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(val)) {
                     this.x += val
                 }
-            },
-            backspace() {
-                if (this.x.length) {
-                    this.x = this.x.slice(0, -1)
+                else if(val === '<') {
+                    const x = +this.x
+                    if(!isNaN(x) && (x > 0)) {
+                        this.x = x - 1
+                    }
+                }
+                else if(val === '>') {
+                    const x = +this.x
+                    if(!isNaN(x)) {
+                        this.x = x + 1
+                    }
+                }
+                else if(val === '?') {
+                    this.showHelpDialog = true
+                }
+                else if(val === '=') {
+                    this.checkExample()
                 }
             },
             timerStopped() {
@@ -407,5 +464,9 @@
 
     .incorrect-answer {
         color: red;
+    }
+
+    .help-dialog p{
+        text-align: left;
     }
 </style>
