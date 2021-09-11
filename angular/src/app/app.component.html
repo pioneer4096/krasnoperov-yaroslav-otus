@@ -1,7 +1,20 @@
-<h1>{{title}}</h1>
-<nav>
-    <a routerLink="/" style="margin-right: 1rem;">RecentlyAdded</a>
-    <a routerLink="/go" style="margin-right: 1rem;">Go</a>
-    <a routerLink="/settings" style="margin-right: 1rem;">Settings</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="main-content">
+
+    <mat-toolbar color="primary">
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of links"
+               routerLinkActive="nav-link-active"
+               [routerLinkActiveOptions]="{exact: true}"
+               mat-button
+               [routerLink]="link.href"
+               > {{link.text}} </a>
+        </nav>
+
+        <span class="top-menu-spacer"></span>
+
+        <h1>{{title}}</h1>
+    </mat-toolbar>
+    <mat-card>
+        <router-outlet></router-outlet>
+    </mat-card>
+</div>

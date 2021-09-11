@@ -1,1 +1,30 @@
-<p>settings works!</p>
+<h2>Настройки приложения</h2>
+<div>
+    <form class="example-form">
+        <div>
+            <label>Выберите языки</label>
+            <ul>
+                <li>
+                    <mat-checkbox ([ngModel])="english" name="english">Английский</mat-checkbox>
+                </li>
+                <li>
+                    <mat-checkbox ([ngModel])="chinese" name="chienese" disabled>Китайский</mat-checkbox>
+                </li>
+                <li>
+                    <mat-checkbox ([ngModel])="japanese" name="japanese" disabled>Японский</mat-checkbox>
+                </li>
+            </ul>
+        </div>
+
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Число слов</mat-label>
+            <input matInput type="number" ([ngModel])="wordsCount">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Ограничение по времени</mat-label>
+            <input matInput type="number" ([ngModel])="timeLimit">
+        </mat-form-field>
+    </form>
+</div>
