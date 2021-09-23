@@ -17,14 +17,18 @@
         </div>
 
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Число слов</mat-label>
             <input matInput type="number" ([ngModel])="wordsCount">
         </mat-form-field>
+
         <br>
-        <mat-form-field class="example-full-width" appearance="fill">
+
+        <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Ограничение по времени</mat-label>
             <input matInput type="number" ([ngModel])="timeLimit">
         </mat-form-field>
+
+        <button type="button" mat-flat-button color="primary">Применить</button>
     </form>
 </div>
