@@ -1,11 +1,10 @@
-<div class="main-content">
+<div class="card main-content">
 
-    <mat-toolbar color="primary">
-        <nav mat-tab-nav-bar>
-            <a mat-tab-link *ngFor="let link of links"
+    <div class="card-header">
+        <nav >
+            <a *ngFor="let link of links"
                routerLinkActive="nav-link-active"
                [routerLinkActiveOptions]="{exact: true}"
-               mat-button
                [routerLink]="link.href"
                > {{link.text}} </a>
         </nav>
@@ -13,8 +12,8 @@
         <span class="top-menu-spacer"></span>
 
         <h1>{{title}}</h1>
-    </mat-toolbar>
-    <mat-card>
+    </div>
+    <div class="card-body">
         <router-outlet></router-outlet>
-    </mat-card>
+    </div>
 </div>

@@ -1,34 +1,30 @@
 <h2>Настройки приложения</h2>
 <div>
+    <ngb-alert type="success">Bootstrap in angular works....</ngb-alert>
+
     <form class="example-form">
         <div>
             <label>Выберите языки</label>
             <ul>
                 <li>
-                    <mat-checkbox ([ngModel])="english" name="english">Английский</mat-checkbox>
+                    чекбокс
                 </li>
                 <li>
-                    <mat-checkbox ([ngModel])="chinese" name="chienese" disabled>Китайский</mat-checkbox>
+                    чекбокс
                 </li>
                 <li>
-                    <mat-checkbox ([ngModel])="japanese" name="japanese" disabled>Японский</mat-checkbox>
+                    чекбокс
                 </li>
             </ul>
         </div>
 
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Число слов</mat-label>
-            <input matInput type="number" ([ngModel])="wordsCount">
-        </mat-form-field>
+        INPUT
 
         <br>
 
-        <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Ограничение по времени</mat-label>
-            <input matInput type="number" ([ngModel])="timeLimit">
-        </mat-form-field>
+        INPUT
 
-        <button type="button" mat-flat-button color="primary">Применить</button>
+        <button type="button">Применить</button>
     </form>
 </div>

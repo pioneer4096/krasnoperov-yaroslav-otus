@@ -7,13 +7,7 @@ import {RecentlyAddedComponent} from './recently-added/recently-added.component'
 import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCardModule} from '@angular/material/card';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox'
-import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatInputModule} from '@angular/material/input'
-import {MatDividerModule} from '@angular/material/divider';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -26,13 +20,7 @@ import {MatDividerModule} from '@angular/material/divider';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatCardModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDividerModule
+        NgbModule
     ],
     providers: [],
     bootstrap: [AppComponent]

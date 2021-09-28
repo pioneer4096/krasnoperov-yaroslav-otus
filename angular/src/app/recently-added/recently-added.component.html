@@ -3,16 +3,10 @@
     <li *ngFor="let word of list">{{word}}</li>
 </ul>
 
-<mat-divider></mat-divider>
-
 <br>
 
 <form class="example-form">
-    <mat-form-field class="example-full-width mr-5" appearance="outline">
-        <mat-label>Слово</mat-label>
-        <input matInput type="text" name="newWord" ([ngModel])="newWord">
-        <mat-hint>Eneterd name = "{{newWord}}"</mat-hint>
-    </mat-form-field>
+    <span>INPUT</span>
 
-    <button type="button" mat-raised-button class="ml-5" style="margin-left: 1rem;" (click)="addWord()">Добавить</button>
+    <button type="button" class="ml-5" style="margin-left: 1rem;" (click)="addWord()">Добавить</button>
 </form>
