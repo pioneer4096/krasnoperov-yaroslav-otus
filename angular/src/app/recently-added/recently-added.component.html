@@ -1,12 +1,9 @@
-<h2>Недавно были добавлены слова:</h2>
-<ul class="word-list">
-    <li *ngFor="let word of list">{{word}}</li>
+<h5>Недавно были добавлены слова:</h5>
+<ul class="word-list collection">
+    <li *ngFor="let word of list" class="collection-item">{{word}}</li>
 </ul>
 
-<br>
+<a class="btn-floating btn-large waves-effect waves-light red right">
+    <i class="material-icons">add</i>
+</a>
 
-<form class="example-form">
-    <span>INPUT</span>
-
-    <button type="button" class="ml-5" style="margin-left: 1rem;" (click)="addWord()">Добавить</button>
-</form>

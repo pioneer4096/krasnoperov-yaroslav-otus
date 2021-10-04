@@ -7,7 +7,7 @@ import {RecentlyAddedComponent} from './recently-added/recently-added.component'
 import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
     declarations: [
@@ -19,8 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule,
-        NgbModule
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
