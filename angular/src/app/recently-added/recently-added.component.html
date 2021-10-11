@@ -1,9 +1,25 @@
 <h5>Недавно были добавлены слова:</h5>
 <ul class="word-list collection">
-    <li *ngFor="let word of list" class="collection-item">{{word}}</li>
+    <li *ngFor="let word of sublist" class="collection-item">
+        <div class="word-list-item">
+            <div>{{word.text}}</div>
+            <div class="spacer"></div>
+            <div>{{word.date | date:'dd.MM.y hh:mm:ss'}}</div>
+        </div>
+    </li>
 </ul>
 
-<a class="btn-floating btn-large waves-effect waves-light red right">
-    <i class="material-icons">add</i>
-</a>
 
+<br>
+<h5>Добавить слово</h5>
+<div>
+    <div class="row">
+        <div class="col s12">
+            <div class="input-field inline mr-2">
+                <input id="add-word" type="text" class="validate" [(ngModel)]="newWord.text">
+                <label for="add-word">Слово</label>
+            </div>
+            <a class="waves-effect waves-light btn" (click)="addWord()">Добавить</a>
+        </div>
+    </div>
+</div>
