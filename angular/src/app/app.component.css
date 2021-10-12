@@ -14,3 +14,11 @@ nav > .nav-link-active {
 .top-menu-spacer {
     flex: 1 1 auto;
 }
+
+.brand-logo {
+    margin-right: 1rem;
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}

@@ -2,24 +2,24 @@
 <div>
     <div class="row">
         <form class="example-form col s12">
-            <div>
-                <label>Выберите языки</label>
+            <div class="input-field col s12">
+                <h6>Выберите языки</h6>
                 <ul>
                     <li>
                         <label>
-                            <input type="checkbox" />
+                            <input type="checkbox" checked="checked" />
                             <span>Английский</span>
                         </label>
                     </li>
                     <li>
                         <label>
-                            <input type="checkbox" />
+                            <input type="checkbox" disabled="disabled" />
                             <span>Французский</span>
                         </label>
                     </li>
                     <li>
                         <label>
-                            <input type="checkbox" />
+                            <input type="checkbox" disabled="disabled" />
                             <span>Японский</span>
                         </label>
                     </li>
@@ -28,15 +28,15 @@
 
 
             <div class="input-field col s12">
-                <input value="" id="words-count" type="text" class="validate">
-                <label class="active" for="words-count">Количество слов в упражнении</label>
-                <span class="helper-text" data-error="wrong" data-success="right">Упражнение не закончится, пока все слова не будут использованы</span>
+                <h6>Количество слов в упражнении</h6>
+                <input id="words-count" name="wordsCount" type="text" class="validate" [(ngModel)]="wordsCount">
+                <span class="helper-text" data-error="wrong">Упражнение не закончится, пока все слова не будут использованы</span>
             </div>
 
             <div class="input-field col s12">
-                <input value="" id="duration" type="text" class="validate">
-                <label class="active" for="duration">Длительность упражнения</label>
-                <span class="helper-text" data-error="wrong" data-success="right">Сколько минут отводится на упражнение, от 1 до 15</span>
+                <h6>Длительность упражнения</h6>
+                <input id="duration" name="timeLimit" type="text" class="validate" [(ngModel)]="timeLimit">
+                <span class="helper-text" data-error="wrong">Сколько минут отводится на упражнение, от 1 до 15</span>
             </div>
 
 

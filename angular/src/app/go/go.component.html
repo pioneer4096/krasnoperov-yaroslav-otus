@@ -1,1 +1,30 @@
-<p>go works!</p>
+<div class="go-page">
+
+    <div class="row">
+        <form class="example-form col s12">
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Сгенерировать пример
+                <i class="material-icons right">send</i>
+            </button>
+
+            <div class="input-field col s12">
+                <h6>Переведи слово << <strong>{{word}}</strong> >> на русский язык:</h6>
+            </div>
+
+            <div class="input-field col s12">
+                <div class="input-field inline mr-2">
+                    <input id="translation" name="translation" type="text" class="validate" [(ngModel)]="translation">
+                    <label for="translation">Перевод</label>
+                </div>
+                <a class="waves-effect waves-light btn-large ml-2">Отправить</a>
+
+
+            </div>
+
+            <div class="input-field col s12">
+
+            </div>
+        </form>
+    </div>
+
+</div>

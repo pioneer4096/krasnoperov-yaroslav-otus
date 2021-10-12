@@ -11,7 +11,7 @@ export class SettingsComponent implements OnInit {
     chinese = false
     japanese = false
 
-    wordsCount = 1
+    wordsCount = 10
     timeLimit = 1
 
     constructor() {
