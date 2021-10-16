@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DictionaryStorageService} from "../dictionary-storage.service";
 
 export interface Word {
     text: string,
@@ -12,34 +13,41 @@ export interface Word {
 })
 export class RecentlyAddedComponent implements OnInit {
 
-    newWord:Word = {text: '', date: 0};
+    newWord = '';
+    translation = '';
+    list = [];
 
-    list:Array<Word> = [
-        {text: 'bus', date: 1633904710 * 1000},
-        {text: 'stone', date: 1633914710 * 1000},
-        {text: 'bar', date: 1633924710 * 1000},
-        {text: 'jar', date: 1633934710 * 1000},
-        {text: 'star', date: 1633944710 * 1000},
-    ].reverse()
-
-    constructor() {
-    }
+    constructor(public dictionary: DictionaryStorageService) {}
 
     ngOnInit(): void {
+        this.getRecent()
+    }
+
+    getRecent() {
+        this.dictionary.getRecent()
+            .subscribe(list => {
+                this.list = list
+                console.log('list was set = ', JSON.stringify(list))
+            });
     }
 
     addWord() {
-        if(this.newWord.text.length) {
-            this.list.unshift({
-                text: this.newWord.text,
-                date: Date.now()
-            })
-
-            this.newWord.text = ''
+        if(this.newWord && this.translation) {
+            this.dictionary.add(this.newWord, this.translation.split(','))
+            this.newWord = ''
+            this.translation = ''
+            this.getRecent()
+            alert('добавлено')
         }
-    }
+        else {
+            let fields = [
+                    {text: 'слово', value: this.newWord},
+                    {text: 'перевод', value: this.translation}
+                ]
+                .filter(f => !f.value)
+                .map(f => f.text)
 
-    get sublist(): Array<Word> {
-        return this.list.slice(0, 10)
+            alert(`Заполните поля ${fields.join(', ')}`)
+        }
     }
 }
