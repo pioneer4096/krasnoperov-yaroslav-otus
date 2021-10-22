@@ -1,11 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService} from "../dictionary-storage.service";
 
-export interface Word {
-    text: string,
-    date: number
-}
-
 @Component({
     selector: 'app-recently-added',
     templateUrl: './recently-added.component.html',

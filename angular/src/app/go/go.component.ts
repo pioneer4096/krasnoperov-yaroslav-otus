@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DictionaryStorageService, Word} from "../dictionary-storage.service";
 
 @Component({
   selector: 'app-go',
@@ -7,21 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GoComponent implements OnInit {
 
-  list = [
-      'bus', 'stone', 'bar', 'jar', 'star'
-    ]
-
-  word = this.list[0]
+  word = null
 
   translation = ''
 
-  constructor() { }
+  constructor(private dictionaryStorage:DictionaryStorageService) { }
 
   ngOnInit(): void {
+    this.generate()
   }
 
   generate() {
-    this.word = this.list[Math.floor(this.list.length * Math.random())]
+    const random: Word = this.dictionaryStorage.getRandom()
+    this.word = random.text
   }
 
 }

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import {of} from "rxjs";
+import {getRandomArrayElement} from "./utils";
+
+export interface Word {
+    text: string,
+    date: number,
+    translations: string[]
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DictionaryStorageService {
   storage = []
-
 
   constructor() {
     this.storage = [
@@ -28,5 +34,9 @@ export class DictionaryStorageService {
 
   getRecent(count = 10) {
       return of(this.storage.slice(0, count))
+  }
+
+  getRandom(): Word {
+      return getRandomArrayElement(this.storage)
   }
 }
