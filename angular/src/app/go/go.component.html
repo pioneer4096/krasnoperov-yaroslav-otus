@@ -1,5 +1,9 @@
 <div class="go-page">
 
+    <div class="row right">
+        Статистика <app-game-stat></app-game-stat>
+    </div>
+
     <div class="row">
         <form class="example-form col s12">
 
@@ -8,7 +12,7 @@
             </button>
 
             <div class="input-field col s12">
-                <h6>Переведи слово << <strong>{{word}}</strong> >> на русский язык:</h6>
+                <h6 *ngIf="word">Переведите слово << <strong>{{word.text}}</strong> >> на русский язык:</h6>
             </div>
 
             <div class="input-field col s12">
@@ -16,7 +20,7 @@
                     <input id="translation" name="translation" type="text" class="validate" [(ngModel)]="translation">
                     <label for="translation">Перевод</label>
                 </div>
-                <a class="waves-effect waves-light btn-large ml-2">Отправить</a>
+                <a class="waves-effect waves-light btn-large ml-2" (click)="checkTranslation()">Проверить</a>
 
 
             </div>

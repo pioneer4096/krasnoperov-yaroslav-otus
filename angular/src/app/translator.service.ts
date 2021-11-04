@@ -7,7 +7,18 @@ export class TranslatorService {
 
   constructor() { }
 
-  translate(word) {
-    return 'перевод'
+  async translate(word) {
+      const res = await fetch("https://libretranslate.de/translate", {
+          method: "POST",
+          body: JSON.stringify({
+              q: word,
+              source: "en",
+              target: "ru",
+              format: "text"
+          }),
+          headers: { "Content-Type": "application/json" }
+      });
+
+      return await res.json();
   }
 }

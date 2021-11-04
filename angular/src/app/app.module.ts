@@ -8,6 +8,7 @@ import {RecentlyAddedComponent} from './recently-added/recently-added.component'
 import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { GameStatComponent } from './game-stat/game-stat.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         AppComponent,
         RecentlyAddedComponent,
         GoComponent,
-        SettingsComponent
+        SettingsComponent,
+        GameStatComponent
     ],
     imports: [
         BrowserModule,

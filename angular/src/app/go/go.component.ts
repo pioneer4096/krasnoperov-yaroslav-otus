@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DictionaryStorageService, Word} from "../dictionary-storage.service";
+import {StatService} from "../stat.service";
 
 @Component({
   selector: 'app-go',
@@ -8,19 +9,41 @@ import {DictionaryStorageService, Word} from "../dictionary-storage.service";
 })
 export class GoComponent implements OnInit {
 
-  word = null
+  word:Word = null
 
   translation = ''
 
-  constructor(private dictionaryStorage:DictionaryStorageService) { }
+  constructor(private dictionaryStorage:DictionaryStorageService, private stat:StatService) {
+      stat.reset()
+  }
 
   ngOnInit(): void {
     this.generate()
   }
 
   generate() {
-    const random: Word = this.dictionaryStorage.getRandom()
-    this.word = random.text
+      this.word = this.dictionaryStorage.getRandom()
+  }
+
+  checkTranslation() {
+    if(this.translation) {
+        if(this.word) {
+            if(this.word.translations.includes(this.translation)) {
+                alert('correct')
+                this.stat.updateCorrect()
+            }
+            else {
+                alert('INcorrect')
+                this.stat.updateIncorrect()
+            }
+            this.translation = ''
+            this.generate()
+        }
+    }
+    else {
+      alert('Заполните поле "перевод"')
+    }
+
   }
 
 }
