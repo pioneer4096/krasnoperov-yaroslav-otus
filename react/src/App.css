@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.content {
+  width: 400px;
+  min-height: 300px;
+  margin: 50px auto 0 auto;
+  padding: 4rem;
+  border: 1px solid lightgrey;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +43,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/**
+  AUTOCOMPLETE FIELD
+**/
+
+.autocomplete-item {
+  border: 1px solid grey;
+  padding: 5px 10px;
 }
