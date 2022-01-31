@@ -3,7 +3,7 @@ import 'bulma/css/bulma.min.css';
 import {Box, Card, Form} from 'react-bulma-components'
 const {Control, Input, Field, Label} = Form
 
-const autoCompletePool = ['Абакан', 'Астана', 'Белгород', 'Бердянск', 'Владимир', 'Вологда', 'Воронеж'].map(city => city.toLowerCase())
+const autoCompletePool = ['Абакан', 'Астана', 'Белгород', 'Бердянск', 'Владимир', 'Вологда', 'Воронеж']
 
 const cityData = [
     {
@@ -29,8 +29,12 @@ function App() {
 
 
     function updateAutocompleteDropdown(search) {
+        const addedCitiesNames = addedCities.map(city => city.title)
+
         const filteredList = search
-            ? autoCompletePool.filter(cityName => Boolean(cityName.includes(search.toLowerCase())))
+            ? autoCompletePool
+                .filter(cityName => Boolean((cityName.toLowerCase()).includes(search.toLowerCase())))
+                .filter(cityName => !addedCitiesNames.includes(cityName))
             : [];
         setAutoCompleteList(filteredList);
     }
@@ -40,9 +44,18 @@ function App() {
     }
 
     function handleAutocompleteClick(cityName) {
-        setAddedCities([...addedCities, cityName]);
+        const newCity = makeCityData(cityName)
+        setAddedCities([...addedCities, newCity]);
         setAutoCompleteList([])
         setSearchInput('')
+    }
+
+    function makeCityData(cityName) {
+        return {
+            title: cityName,
+            temperature: '',
+            image: 'https://img.favpng.com/14/1/19/drawing-cartoon-png-favpng-LDPbKDBZUZnHi1kaG9xNwdWrA.jpg'
+        }
     }
 
     return (
@@ -90,9 +103,12 @@ function App() {
                                         <div className="city-name">
                                             {city.title}
                                         </div>
-                                        <div className="city-temperature">
-                                            {city.temperature}°
-                                        </div>
+                                        {
+                                            city.temperature &&
+                                            <div className="city-temperature">
+                                                {city.temperature}°
+                                            </div>
+                                        }
                                     </Card.Content>
                                 </Card>
                             ))
