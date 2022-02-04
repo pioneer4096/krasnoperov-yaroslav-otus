@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import 'bulma/css/bulma.min.css';
-import {Box, Card, Form} from 'react-bulma-components'
-const {Control, Input, Field, Label} = Form
+// import env from "react-dotenv";
+import { debounce } from "lodash"
+import {Box, Card, Form} from 'react-bulma-components';
+const {Control, Input, Field, Label} = Form;
 
 const autoCompletePool = ['Абакан', 'Астана', 'Белгород', 'Бердянск', 'Владимир', 'Вологда', 'Воронеж']
 
@@ -39,8 +41,16 @@ function App() {
         setAutoCompleteList(filteredList);
     }
 
+    const delayedSearch = useCallback(
+        debounce((value) => {
+            console.warn('debounce search = ', value)
+        }, 500),
+        []
+    );
+
     function handleCitySearchChange(event) {
         setSearchInput(event.target.value);
+        delayedSearch(searchInput)
     }
 
     function handleAutocompleteClick(cityName) {
