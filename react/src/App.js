@@ -5,8 +5,9 @@ import { debounce } from "lodash"
 import {Box, Card, Form} from 'react-bulma-components';
 import axios from 'axios';
 import {useLocalStorage} from './utils/use.local.storage';
-const {Control, Input, Field, Label} = Form;
+import CloseButton from './components/CloseButton/CloseButton'
 
+const {Control, Input, Field, Label} = Form;
 
 function App() {
     const [autoCompleteList, setAutoCompleteList] = useState([]);
@@ -65,6 +66,13 @@ function App() {
         }
     }
 
+    function deleteCity({id}) {
+        console.warn('neeed delete city id = ', id)
+        const newCities = addedCities.filter(city => city.id !== id);
+        console.log('newCities = ', newCities)
+        setAddedCities(newCities);
+    }
+
     return (
         <div className="App">
             <div className="content">
@@ -102,6 +110,9 @@ function App() {
                             addedCities.length ?
                                 addedCities.map((city, index) => (
                                     <Card key={'city-card-mini-' + index} className="mt-1 mr-3" style={{width: 250}}>
+                                        <div className="tools-line">
+                                            <CloseButton click={() => deleteCity(city)}/>
+                                        </div>
                                         <Card.Content>
                                             {
                                                 city.image &&
