@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import 'bulma/css/bulma.min.css';
 import env from "react-dotenv";
-import { debounce } from "lodash"
+import { debounce, random } from "lodash"
 import {Box, Card, Form} from 'react-bulma-components';
 import axios from 'axios';
 import {useLocalStorage} from './utils/use.local.storage';
@@ -13,16 +13,38 @@ function App() {
     const [autoCompleteList, setAutoCompleteList] = useState([]);
     const [searchInput, setSearchInput] = useState('')
     const [addedCities, setAddedCities] = useLocalStorage('added-cities', [])
+    let interval = null;
+
+    useEffect(() => {
+        interval = setInterval(() => {
+            updateTemperature(addedCities)
+        }, 10000)
+
+        return () => clearInterval(interval);
+    });
+
+    function updateTemperature(cities) {
+        const updatedCities = cities.map(city => {
+            return {
+                ...city,
+                temperature: random(-50, 50)
+            }
+        })
+        setAddedCities(updatedCities)
+    }
 
     function updateAutocompleteDropdown(data) {
         if(Array.isArray(data)) {
-            const list = data.map(d => {
-                return {
-                    id: d.id,
-                    name: d.name,
-                    fullName: `${d.name} (${d.region}, ${d.country})`
-                }
-            })
+            const excludeIds = addedCities.map(city => city.id);
+            const list = data
+                .filter(d => !excludeIds.includes(d.id)) // cant add already added
+                .map(d => {
+                    return {
+                        id: d.id,
+                        name: d.name,
+                        fullName: `${d.name} (${d.region}, ${d.country})`
+                    }
+                })
             setAutoCompleteList(list)
         }
         else {
@@ -61,7 +83,7 @@ function App() {
     function makeCityData(city) {
         return {
             ...city,
-            temperature: '+5',
+            temperature: '-',
             image: 'https://img.favpng.com/14/1/19/drawing-cartoon-png-favpng-LDPbKDBZUZnHi1kaG9xNwdWrA.jpg'
         }
     }
