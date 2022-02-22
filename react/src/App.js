@@ -67,9 +67,7 @@ function App() {
     }
 
     function deleteCity({id}) {
-        console.warn('neeed delete city id = ', id)
         const newCities = addedCities.filter(city => city.id !== id);
-        console.log('newCities = ', newCities)
         setAddedCities(newCities);
     }
 
@@ -89,7 +87,7 @@ function App() {
 
                         {
                             autoCompleteList.length ?
-                                <div>
+                                <div class="autocomplete-wrapper">
                                     {
                                         autoCompleteList.map((city, index) => (
                                             <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
@@ -109,7 +107,11 @@ function App() {
                         {
                             addedCities.length ?
                                 addedCities.map((city, index) => (
-                                    <Card key={'city-card-mini-' + index} className="mt-1 mr-3" style={{width: 250}}>
+                                    <Card
+                                        key={'city-card-mini-' + index}
+                                        className="mt-1 mr-3 city-card-mini"
+                                        onClick={() => alert(`click on ${city.name}`)}
+                                        style={{width: 250}}>
                                         <div className="tools-line">
                                             <CloseButton click={() => deleteCity(city)}/>
                                         </div>
