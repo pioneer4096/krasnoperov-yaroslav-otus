@@ -50,3 +50,9 @@ code {
 .autocomplete-item:hover {
   background-color: lightsteelblue;
 }
+
+
+
+.city-forecast {
+  display: flex;
+}

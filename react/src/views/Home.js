@@ -11,8 +11,8 @@ const {Control, Input, Field, Label} = Form;
 
 function Home() {
     const [autoCompleteList, setAutoCompleteList] = useState([]);
-    const [searchInput, setSearchInput] = useState('')
-    const [addedCities, setAddedCities] = useLocalStorage('added-cities', [])
+    const [searchInput, setSearchInput] = useState('');
+    const [addedCities, setAddedCities] = useLocalStorage('added-cities', []);
 
     useEffect(() => {
         const interval = setInterval(() => {
