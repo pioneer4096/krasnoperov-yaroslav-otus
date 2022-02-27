@@ -5,18 +5,18 @@ import {
     Route
 } from 'react-router-dom';
 import Home from './views/Home';
-import City from './views/City';
+import CityForecast from './views/CityForecast';
 import NotFound from './views/NotFound';
 
 function App() {
     return (
         <div className="App">
-            <div className="content" style={{width: 800, margin: 'auto'}}>
+            <div className="content page-content">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="city/*">
-                            <Route path=":id" element={<City />} />
+                            <Route path=":id" element={<CityForecast />} />
                         </Route>
                         <Route path="*" element={<NotFound />} />
                     </Routes>

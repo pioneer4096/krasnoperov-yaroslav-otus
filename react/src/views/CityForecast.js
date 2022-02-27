@@ -1,14 +1,15 @@
+import '../styles/CityForecast.css';
 import CityWeather from '../components/CityWeather/CityWeather';
 import {forecastResponse} from '../data/response.js';
 import {useState} from 'react';
 import BackToMain from '../components/BackToMain/BackToMain';
 
-function City() {
+function CityForecast() {
     const [location] = useState(forecastResponse.location)
     const [forecast] = useState(forecastResponse.forecast.forecastday)
 
     return (
-        <>
+        <div className="page-city-forecast">
             <BackToMain text="На главную"/>
             <h1>Погода в {location ? location.name : ''}</h1>
             <div className="city-forecast">
@@ -16,6 +17,7 @@ function City() {
                     forecast && forecast.length
                         ? forecast.map((f,index) => {
                             return <CityWeather
+                                key={'city_weather_' + index}
                                 index={index}
                                 minTemp={f.day.mintemp_c}
                                 maxTemp={f.day.maxtemp_c}
@@ -27,8 +29,8 @@ function City() {
                         : 'нет данных'
                 }
             </div>
-        </>
+        </div>
     )
 }
 
-export default City;
+export default CityForecast;

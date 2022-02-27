@@ -1,3 +1,4 @@
+import '../styles/Home.css';
 import {useCallback, useEffect, useState} from 'react';
 import env from 'react-dotenv';
 import {debounce, random} from 'lodash';
@@ -7,7 +8,7 @@ import {useLocalStorage} from '../utils/use.local.storage';
 import CloseButton from '../components/CloseButton/CloseButton';
 import {Link} from 'react-router-dom';
 
-const {Control, Input, Field, Label} = Form;
+const {Control, Input, Field} = Form;
 
 function Home() {
     const [autoCompleteList, setAutoCompleteList] = useState([]);
@@ -17,7 +18,7 @@ function Home() {
     useEffect(() => {
         const interval = setInterval(() => {
             updateTemperature(addedCities)
-        }, 10000)
+        }, 10000);
 
         return () => clearInterval(interval);
     }, []);
@@ -28,7 +29,7 @@ function Home() {
                 ...city,
                 temperature: random(-50, 50)
             }
-        })
+        });
         setAddedCities(updatedCities)
     }
 
@@ -73,10 +74,10 @@ function Home() {
     }
 
     function handleAutocompleteClick(cityData) {
-        const newCity = makeCityData(cityData)
+        const newCity = makeCityData(cityData);
         setAddedCities([...addedCities, newCity]);
-        setAutoCompleteList([])
-        setSearchInput('')
+        setAutoCompleteList([]);
+        setSearchInput('');
     }
 
     function makeCityData(city) {
@@ -94,29 +95,29 @@ function Home() {
 
     return (
         <div className="page-home">
-            <Box>
-                <div className="add-city">
-                    <Field>
-                        <Label>
-                            Добавить город
-                        </Label>
-                        <Control>
-                            <Input type="text" placeholder="Имя города" value={searchInput} onInput={handleCitySearchChange} />
-                        </Control>
-                    </Field>
+            <div>
+                <h4>Добавить город</h4>
+                <Box className="add-city-wrapper">
+                    <div className="add-city">
+                        <Field>
+                            <Control>
+                                <Input type="text" placeholder="Имя города" value={searchInput} onInput={handleCitySearchChange} />
+                            </Control>
+                        </Field>
 
-                    {
-                        autoCompleteList.length ?
-                            <div className="autocomplete-wrapper">
-                                {
-                                    autoCompleteList.map((city, index) => (
-                                        <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
-                                    ))
-                                }
-                            </div> : ''
-                    }
-                </div>
-            </Box>
+                        {
+                            autoCompleteList.length ?
+                                <div className="autocomplete-wrapper">
+                                    {
+                                        autoCompleteList.map((city, index) => (
+                                            <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
+                                        ))
+                                    }
+                                </div> : ''
+                        }
+                    </div>
+                </Box>
+            </div>
 
             <br/><br/>
 
@@ -127,9 +128,8 @@ function Home() {
                     {
                         addedCities.length ?
                             addedCities.map((city, index) => (
-                                <Link to={`/city/${city.id}`}>
+                                <Link to={`/city/${city.id}`} key={'city-card-mini-' + index}>
                                     <Card
-                                        key={'city-card-mini-' + index}
                                         className="mt-1 mr-3 city-card-mini"
                                         style={{width: 250}}>
                                         <div className="tools-line">
