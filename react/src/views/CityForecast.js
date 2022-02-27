@@ -1,12 +1,35 @@
+import React from "react";
 import '../styles/CityForecast.css';
 import CityWeather from '../components/CityWeather/CityWeather';
-import {forecastResponse} from '../data/response.js';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import BackToMain from '../components/BackToMain/BackToMain';
+import axios from 'axios';
+import env from 'react-dotenv';
+import { useParams } from "react-router-dom";
 
 function CityForecast() {
-    const [location] = useState(forecastResponse.location)
-    const [forecast] = useState(forecastResponse.forecast.forecastday)
+    const params = useParams();
+    const [location, setLocation] = useState({});    // forecastResponse.location
+    const [forecast, setForecast] = useState([]);    // forecastResponse.forecast.forecastday
+
+    function setData(data) {
+        setLocation(data?.location || {});
+        setForecast(data?.forecast?.forecastday || [])
+    }
+
+    function resetData() {
+        setLocation({});
+        setForecast([]);
+    }
+
+    useEffect(() => {
+        axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${env.REACT_APP_API_KEY}&q=${params.id}&days=10&aqi=no&alerts=no`)
+            .then(r => setData(r.data))
+            .catch(e => {
+                console.warn(e);
+                resetData();
+            })
+    }, []);
 
     return (
         <div className="page-city-forecast">

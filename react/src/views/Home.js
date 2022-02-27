@@ -54,7 +54,7 @@ function Home() {
 
     const delayedSearch = useCallback(
         debounce((value) => {
-            axios.get(`http://api.weatherapi.com/v1/search.json?key=${env.API_KEY}&q=${value}`)
+            axios.get(`http://api.weatherapi.com/v1/search.json?key=${env.REACT_APP_API_KEY}&q=${value}`)
                 .then(r => updateAutocompleteDropdown(r.data))
                 .catch(e => console.warn(e))
         }, 500),
@@ -128,7 +128,7 @@ function Home() {
                     {
                         addedCities.length ?
                             addedCities.map((city, index) => (
-                                <Link to={`/city/${city.id}`} key={'city-card-mini-' + index}>
+                                <Link to={`/city/${city.name}`} key={'city-card-mini-' + index}>
                                     <Card
                                         className="mt-1 mr-3 city-card-mini"
                                         style={{width: 250}}>
