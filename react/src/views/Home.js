@@ -93,80 +93,78 @@ function Home() {
     }
 
     return (
-        <div className="App">
-            <div className="content">
-                <Box style={{ width: 600, margin: 'auto' }}>
-                    <div className="add-city">
-                        <Field>
-                            <Label>
-                                Добавить город
-                            </Label>
-                            <Control>
-                                <Input type="text" placeholder="Имя города" value={searchInput} onInput={handleCitySearchChange} />
-                            </Control>
-                        </Field>
+        <div className="page-home">
+            <Box>
+                <div className="add-city">
+                    <Field>
+                        <Label>
+                            Добавить город
+                        </Label>
+                        <Control>
+                            <Input type="text" placeholder="Имя города" value={searchInput} onInput={handleCitySearchChange} />
+                        </Control>
+                    </Field>
 
-                        {
-                            autoCompleteList.length ?
-                                <div className="autocomplete-wrapper">
-                                    {
-                                        autoCompleteList.map((city, index) => (
-                                            <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
-                                        ))
-                                    }
-                                </div> : ''
-                        }
-                    </div>
-                </Box>
-
-                <br/><br/>
-
-                <div className="added-cities-list" style={{ width: '600px', margin: '0 auto'}}>
-                    <h4>Добавленные города</h4>
-
-                    <div className="cities-cards" style={{display: 'flex'}}>
-                        {
-                            addedCities.length ?
-                                addedCities.map((city, index) => (
-                                    <Link to={`/city/${city.id}`}>
-                                        <Card
-                                            key={'city-card-mini-' + index}
-                                            className="mt-1 mr-3 city-card-mini"
-                                            style={{width: 250}}>
-                                            <div className="tools-line">
-                                                <CloseButton click={() => deleteCity(city)}/>
-                                            </div>
-                                            <Card.Content>
-                                                {
-                                                    city.image &&
-                                                    <img
-                                                        align="right"
-                                                        width="64"
-                                                        height="64"
-                                                        alt="Солнечно"
-                                                        src={city.image}
-                                                    />
-                                                }
-
-                                                <div className="city-name">
-                                                    {city.name}
-                                                </div>
-                                                {
-                                                    city.temperature &&
-                                                    <div className="city-temperature">
-                                                        {city.temperature}°
-                                                    </div>
-                                                }
-                                            </Card.Content>
-                                        </Card>
-                                    </Link>
-                                ))
-                                : <div>нет городов</div>
-                        }
-                    </div>
-
-
+                    {
+                        autoCompleteList.length ?
+                            <div className="autocomplete-wrapper">
+                                {
+                                    autoCompleteList.map((city, index) => (
+                                        <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
+                                    ))
+                                }
+                            </div> : ''
+                    }
                 </div>
+            </Box>
+
+            <br/><br/>
+
+            <div className="added-cities-list">
+                <h4>Мои города</h4>
+
+                <div className="cities-cards" style={{display: 'flex'}}>
+                    {
+                        addedCities.length ?
+                            addedCities.map((city, index) => (
+                                <Link to={`/city/${city.id}`}>
+                                    <Card
+                                        key={'city-card-mini-' + index}
+                                        className="mt-1 mr-3 city-card-mini"
+                                        style={{width: 250}}>
+                                        <div className="tools-line">
+                                            <CloseButton click={() => deleteCity(city)}/>
+                                        </div>
+                                        <Card.Content>
+                                            {
+                                                city.image &&
+                                                <img
+                                                    align="right"
+                                                    width="64"
+                                                    height="64"
+                                                    alt="Солнечно"
+                                                    src={city.image}
+                                                />
+                                            }
+
+                                            <div className="city-name">
+                                                {city.name}
+                                            </div>
+                                            {
+                                                city.temperature &&
+                                                <div className="city-temperature">
+                                                    {city.temperature}°
+                                                </div>
+                                            }
+                                        </Card.Content>
+                                    </Card>
+                                </Link>
+                            ))
+                            : <div>нет городов</div>
+                    }
+                </div>
+
+
             </div>
         </div>
     );

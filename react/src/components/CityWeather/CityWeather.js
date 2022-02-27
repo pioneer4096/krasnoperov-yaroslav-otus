@@ -1,8 +1,8 @@
 import './CityWeather.css'
 
-function CityWeather({minTemp, maxTemp, date, img, wind, precipation}) {
+function CityWeather({index, minTemp, maxTemp, date, img, wind, precipation}) {
     return (
-        <div className="city-weather">
+        <div className={`city-weather ${index === 0 ? "first-item" : ""}`}>
             <div>
                 {date}
             </div>

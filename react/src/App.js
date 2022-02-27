@@ -10,15 +10,19 @@ import NotFound from './views/NotFound';
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="city/*">
-                    <Route path=":id" element={<City />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
+        <div className="App">
+            <div className="content" style={{width: 800, margin: 'auto'}}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="city/*">
+                            <Route path=":id" element={<City />} />
+                        </Route>
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
+            </div>
+        </div>
     );
 }
 
