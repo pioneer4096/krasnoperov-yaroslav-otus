@@ -2,41 +2,33 @@ import '../styles/Home.css';
 import {useLocalStorage} from '../utils/use.local.storage';
 import CitiesAutocomplete from '../components/CitiesAutocomplete/CitiesAutocomplete';
 import MyCitiesList from '../components/MyCitiesList/MyCitiesList';
+import ListWeatherUpdater from '../utils/ListWeatherUpdater';
 
 function Home() {
-    const [addedCities, setAddedCities] = useLocalStorage('added-cities', []);
+    const [citiesList, updateCitiesList] = useLocalStorage('added-cities', []);
+    const weatherUpdater = new ListWeatherUpdater();
 
-    /*useEffect(() => {
+    useEffect(() => {
         const interval = setInterval(() => {
-            updateTemperature(addedCities)
+            weatherUpdater.update()
         }, 10000);
 
         return () => clearInterval(interval);
     }, []);
 
-    function updateTemperature(cities) {
-        const updatedCities = cities.map(city => {
-            return {
-                ...city,
-                temperature: random(-50, 50)
-            }
-        });
-        setAddedCities(updatedCities)
-    }*/
-
 
     return (
         <div className="page-home">
             <CitiesAutocomplete
-                citiesList={addedCities}
-                updateCitiesList={setAddedCities}
+                citiesList={citiesList}
+                updateCitiesList={updateCitiesList}
             />
 
             <br/><br/>
 
             <MyCitiesList
-                citiesList={addedCities}
-                updateCitiesList={setAddedCities}
+                citiesList={citiesList}
+                updateCitiesList={updateCitiesList}
             />
         </div>
     );
