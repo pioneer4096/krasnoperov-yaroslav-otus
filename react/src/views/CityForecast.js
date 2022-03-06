@@ -3,9 +3,8 @@ import '../styles/CityForecast.css';
 import CityWeather from '../components/CityWeather/CityWeather';
 import {useState, useEffect} from 'react';
 import BackToMain from '../components/BackToMain/BackToMain';
-import axios from 'axios';
-import env from 'react-dotenv';
 import { useParams } from "react-router-dom";
+import {getForecast} from '../api/api';
 
 function CityForecast() {
     const params = useParams();
@@ -23,7 +22,7 @@ function CityForecast() {
     }
 
     useEffect(() => {
-        axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${env.REACT_APP_API_KEY}&q=${params.id}&days=10&aqi=no&alerts=no`)
+        getForecast(params.id)
             .then(r => setData(r.data))
             .catch(e => {
                 console.warn(e);

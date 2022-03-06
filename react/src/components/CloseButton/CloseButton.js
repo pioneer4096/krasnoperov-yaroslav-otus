@@ -4,9 +4,15 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import React from 'react';
 
 function CloseButton({click}) {
+    function clickHandler(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        click();
+    }
+
     return (
         <div className="close-btn">
-            <FontAwesomeIcon icon={faXmark} onClick={click}/>
+            <FontAwesomeIcon icon={faXmark} onClick={clickHandler}/>
         </div>
     )
 }

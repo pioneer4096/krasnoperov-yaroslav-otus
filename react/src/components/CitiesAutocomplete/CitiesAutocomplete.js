@@ -1,9 +1,9 @@
 import './CitiesAutocomplete.css'
 import {Box, Form} from 'react-bulma-components';
 import {useCallback, useState} from 'react';
-import axios from 'axios';
 import {debounce} from 'lodash';
-import env from 'react-dotenv';
+import {CITY_UNTOUCHED} from '../../utils/city.states';
+import {searchAutocomplete} from '../../api/api';
 const {Control, Input, Field} = Form;
 
 function CitiesAutocomplete({citiesList, updateCitiesList}) {
@@ -21,7 +21,7 @@ function CitiesAutocomplete({citiesList, updateCitiesList}) {
                         name: d.name,
                         fullName: `${d.name} (${d.region}, ${d.country})`
                     }
-                })
+                });
             setAutoCompleteList(list)
         }
         else {
@@ -31,7 +31,7 @@ function CitiesAutocomplete({citiesList, updateCitiesList}) {
 
     const delayedSearch = useCallback(
         debounce((value) => {
-            axios.get(`http://api.weatherapi.com/v1/search.json?key=${env.REACT_APP_API_KEY}&q=${value}&lang=ru`)
+            searchAutocomplete(value)
                 .then(r => updateAutocompleteDropdown(r.data))
                 .catch(e => console.warn(e))
         }, 500),
@@ -60,7 +60,9 @@ function CitiesAutocomplete({citiesList, updateCitiesList}) {
         return {
             ...city,
             temperature: '-',
-            image: 'https://img.favpng.com/14/1/19/drawing-cartoon-png-favpng-LDPbKDBZUZnHi1kaG9xNwdWrA.jpg'
+            image: '/loading.gif',
+            updated: null,  // last weather update time
+            state: CITY_UNTOUCHED
         }
     }
 

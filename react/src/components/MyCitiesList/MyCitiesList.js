@@ -36,7 +36,7 @@ function MyCitiesList({citiesList, updateCitiesList}) {
                                             />
                                         }
 
-                                        <div className="city-name">
+                                        <div className="city-name" title={city.name}>
                                             {city.name}
                                         </div>
                                         {
