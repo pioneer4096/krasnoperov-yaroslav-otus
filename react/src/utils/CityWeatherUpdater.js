@@ -3,7 +3,7 @@ import {CITY_UNTOUCHED, CITY_DONE} from './city.states';
 
 const TIME_TO_OUTDATED = 24 * 60 * 60 * 1000;   // 1 day in ms
 
-class CityWeatherUpdater {
+export class CityWeatherUpdater {
     constructor(applyCityWeather) {
         this.loading = false;
         this.applyCityWeather = applyCityWeather.bind(this);
@@ -51,5 +51,3 @@ class CityWeatherUpdater {
         })
     }
 }
-
-export default CityWeatherUpdater;

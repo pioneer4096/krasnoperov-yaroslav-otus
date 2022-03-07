@@ -1,6 +1,6 @@
 import './CityWeather.css'
 
-function CityWeather({index, minTemp, maxTemp, date, img, wind, precipation}) {
+export function CityWeather({index, minTemp, maxTemp, date, img, wind, precipation}) {
     return (
         <div className={`city-weather ${index === 0 ? "first-item" : ""}`}>
             <div>
@@ -21,5 +21,3 @@ function CityWeather({index, minTemp, maxTemp, date, img, wind, precipation}) {
         </div>
     )
 }
-
-export default CityWeather;

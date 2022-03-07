@@ -4,9 +4,9 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
-import Home from './views/Home';
-import CityForecast from './views/CityForecast';
-import NotFound from './views/NotFound';
+import {Home} from './views/Home';
+import {CityForecast} from './views/CityForecast';
+import {NotFound} from './views/NotFound';
 
 function App() {
     return (

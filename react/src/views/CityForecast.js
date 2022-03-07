@@ -1,12 +1,12 @@
 import React from "react";
 import '../styles/CityForecast.css';
-import CityWeather from '../components/CityWeather/CityWeather';
+import {CityWeather} from '../components/CityWeather/CityWeather';
 import {useState, useEffect} from 'react';
-import BackToMain from '../components/BackToMain/BackToMain';
-import { useParams } from "react-router-dom";
+import {BackToMain} from '../components/BackToMain/BackToMain';
+import {useParams} from "react-router-dom";
 import {getForecast} from '../api/api';
 
-function CityForecast() {
+export function CityForecast() {
     const params = useParams();
     const [location, setLocation] = useState({});    // forecastResponse.location
     const [forecast, setForecast] = useState([]);    // forecastResponse.forecast.forecastday
@@ -54,5 +54,3 @@ function CityForecast() {
         </div>
     )
 }
-
-export default CityForecast;

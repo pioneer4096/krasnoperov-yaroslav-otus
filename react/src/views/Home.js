@@ -1,12 +1,12 @@
 import '../styles/Home.css';
 import {useLocalStorage} from '../utils/use.local.storage';
-import CitiesAutocomplete from '../components/CitiesAutocomplete/CitiesAutocomplete';
-import MyCitiesList from '../components/MyCitiesList/MyCitiesList';
-import CityWeatherUpdater from '../utils/CityWeatherUpdater';
+import {CitiesAutocomplete} from '../components/CitiesAutocomplete/CitiesAutocomplete';
+import {MyCitiesList} from '../components/MyCitiesList/MyCitiesList';
+import {CityWeatherUpdater} from '../utils/CityWeatherUpdater';
 import {useEffect} from 'react';
 import {CITY_DONE} from '../utils/city.states';
 
-function Home() {
+export function Home() {
     const [citiesList, updateCitiesList] = useLocalStorage('cities-list', []);
     const weatherUpdater = new CityWeatherUpdater(applyCityWeather);
 
@@ -51,5 +51,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;

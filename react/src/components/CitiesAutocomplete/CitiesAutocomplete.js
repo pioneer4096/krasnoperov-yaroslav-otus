@@ -6,7 +6,7 @@ import {CITY_UNTOUCHED} from '../../utils/city.states';
 import {searchAutocomplete} from '../../api/api';
 const {Control, Input, Field} = Form;
 
-function CitiesAutocomplete({citiesList, updateCitiesList}) {
+export function CitiesAutocomplete({citiesList, updateCitiesList}) {
     const [autoCompleteList, setAutoCompleteList] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
@@ -83,15 +83,16 @@ function CitiesAutocomplete({citiesList, updateCitiesList}) {
                             <div className="autocomplete-wrapper">
                                 {
                                     autoCompleteList.map((city, index) => (
-                                        <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>{city.fullName}</div>
+                                        <div key={index} className="autocomplete-item" onClick={() => handleAutocompleteClick(city)}>
+                                            {city.fullName}
+                                        </div>
                                     ))
                                 }
-                            </div> : ''
+                            </div>
+                            : null
                     }
                 </div>
             </Box>
         </div>
     )
 }
-
-export default CitiesAutocomplete;

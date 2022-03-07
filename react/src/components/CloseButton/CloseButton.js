@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import React from 'react';
 
-function CloseButton({click}) {
+export function CloseButton({click}) {
     function clickHandler(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -16,5 +16,3 @@ function CloseButton({click}) {
         </div>
     )
 }
-
-export default CloseButton

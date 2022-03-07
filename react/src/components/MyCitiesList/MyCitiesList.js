@@ -1,9 +1,9 @@
 import './MyCitiesList.css'
 import {Link} from 'react-router-dom';
 import {Card} from 'react-bulma-components';
-import CloseButton from '../CloseButton/CloseButton';
+import {CloseButton} from '../CloseButton/CloseButton';
 
-function MyCitiesList({citiesList, updateCitiesList}) {
+export function MyCitiesList({citiesList, updateCitiesList}) {
     function deleteCity({id}) {
         const newCities = citiesList.filter(city => city.id !== id);
         updateCitiesList(newCities);
@@ -52,10 +52,6 @@ function MyCitiesList({citiesList, updateCitiesList}) {
                         : <div>нет городов</div>
                 }
             </div>
-
-
         </div>
     )
 }
-
-export default MyCitiesList;
