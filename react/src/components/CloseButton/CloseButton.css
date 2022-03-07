@@ -1,0 +1,11 @@
+.close-btn {
+    position: absolute;
+    padding: 0 5px;
+    right: 0.5rem;
+    text-align: right;
+}
+
+.close-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

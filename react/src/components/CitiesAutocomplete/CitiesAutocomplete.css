@@ -1,0 +1,25 @@
+.add-city-wrapper {
+    padding: 0 !important;
+}
+
+.autocomplete-wrapper {
+    position: absolute;
+    background: #fff;
+    z-index: 1000;
+    width: 800px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-top: -0.75rem;
+    line-height: 1.25;
+}
+
+.autocomplete-item {
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+    padding: 12px 12px 12px 10px;
+}
+
+.autocomplete-item:hover {
+    background-color: lightsteelblue;
+}
