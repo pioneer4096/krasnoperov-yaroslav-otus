@@ -9,7 +9,9 @@ import {DictionaryStorageService} from "../dictionary-storage.service";
 export class RecentlyAddedComponent implements OnInit {
 
     newWord = '';
+    wordLang = 'en';
     translation = '';
+    translationLang = 'ru';
     list = [];
 
     constructor(public dictionary: DictionaryStorageService) {}
@@ -28,7 +30,7 @@ export class RecentlyAddedComponent implements OnInit {
 
     addWord() {
         if(this.newWord && this.translation) {
-            this.dictionary.add(this.newWord, this.translation.split(','))
+            this.dictionary.add(this.newWord, 'en', this.translation.split(','), 'ru')
             this.newWord = ''
             this.translation = ''
             this.getRecent()

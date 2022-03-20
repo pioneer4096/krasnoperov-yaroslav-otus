@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+declare var $: any;
 
 @Component({
     selector: 'app-root',
@@ -11,6 +12,10 @@ export class AppComponent {
         {
             href: '/',
             text: 'Последние добавленные слова'
+        },
+        {
+            href: '/dictionary',
+            text: 'Словарь'
         },
         {
             href: '/go',

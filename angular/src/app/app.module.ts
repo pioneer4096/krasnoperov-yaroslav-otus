@@ -9,6 +9,9 @@ import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GameStatComponent } from './game-stat/game-stat.component';
+import { DictionaryComponent } from './dictionary/dictionary.component';
+import { CdTimerModule } from 'angular-cd-timer';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -17,13 +20,16 @@ import { GameStatComponent } from './game-stat/game-stat.component';
         RecentlyAddedComponent,
         GoComponent,
         SettingsComponent,
-        GameStatComponent
+        GameStatComponent,
+        DictionaryComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        CdTimerModule,
+        ToastrModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent]

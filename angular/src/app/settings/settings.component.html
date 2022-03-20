@@ -29,18 +29,18 @@
 
             <div class="input-field col s12">
                 <h6>Количество слов в упражнении</h6>
-                <input id="words-count" name="wordsCount" type="text" class="validate" [(ngModel)]="wordsCount">
+                <input id="words-count" name="wordsCount" type="text" class="validate" [(ngModel)]="settings.wordsCount">
                 <span class="helper-text" data-error="wrong">Упражнение не закончится, пока все слова не будут использованы</span>
             </div>
 
             <div class="input-field col s12">
                 <h6>Длительность упражнения</h6>
-                <input id="duration" name="timeLimit" type="text" class="validate" [(ngModel)]="timeLimit">
+                <input id="duration" name="timeLimit" type="text" class="validate" [(ngModel)]="settings.timeLimit">
                 <span class="helper-text" data-error="wrong">Сколько минут отводится на упражнение, от 1 до 15</span>
             </div>
 
 
-            <a class="waves-effect waves-light btn darken-2">Применить</a>
+            <a class="waves-effect waves-light btn darken-2" (click)="applySettings()">Применить</a>
         </form>
     </div>
 </div>
