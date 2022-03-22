@@ -8,22 +8,25 @@ import {ISettings, SettingsStorageService} from "../settings-storage.service";
     styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-    settings: ISettings = {
-        wordsCount: 10,
-        timeLimit: 1
-    };
+    settings: ISettings;
 
     constructor(private toastr: ToastrService, private settingsStorage: SettingsStorageService) {
-        // this.settings = settingsStorage.getLatest();
     }
 
     ngOnInit(): void {
+        this.settings = this.settingsStorage.load();
     }
 
     applySettings(): void {
-        this.toastr.success('Hello world!', 'Toastr fun!');
-        console.log('settings to apply = ', this.settings)
-        // this.settingsStorage.save(this.settings);
+        console.log('try settings to apply = ', this.settings)
+        try {
+            this.settingsStorage.save(this.settings);
+            this.toastr.success('Настройки применены', 'ОК');
+        }
+        catch (e) {
+            this.toastr.error(e.message || 'no-message-set', 'ОШИБКА');
+        }
+
     }
 
 }

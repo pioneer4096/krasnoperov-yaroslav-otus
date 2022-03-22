@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService, Word} from "../dictionary-storage.service";
 import {StatService} from "../stat.service";
+import {ISettings, SettingsStorageService} from "../settings-storage.service";
 
 @Component({
     selector: 'app-go',
@@ -8,20 +9,23 @@ import {StatService} from "../stat.service";
     styleUrls: ['./go.component.css']
 })
 export class GoComponent implements OnInit {
+    settings: ISettings;
+    word: Word = null;
+    isPlaying = false;
+    timerDuration = 15;
 
-    word: Word = null
-    isPlaying = false
+    translation = '';
 
-    translation = ''
-
-    constructor(private dictionaryStorage: DictionaryStorageService, private stat: StatService) {
+    constructor(private dictionaryStorage: DictionaryStorageService, private stat: StatService, private settingsStorage: SettingsStorageService) {
         stat.reset()
     }
 
     ngOnInit(): void {
+        this.settings = this.settingsStorage.load();
         this.generate()
     }
 
+    // TODO запоминать использованные слова в течении игры и исключать их из рандомайзинга
     generate() {
         this.word = this.dictionaryStorage.getRandom()
     }
@@ -51,6 +55,8 @@ export class GoComponent implements OnInit {
 
     startGame() {
         this.isPlaying = true
+        // SET GAME SETTINGS
+        // SET
     }
 
     stopGame() {

@@ -1,1 +1,27 @@
-<p>dictionary works!</p>
+<table>
+    <tr>
+        <th>Слово</th>
+        <th>Перервод</th>
+        <th>Действия</th>
+    </tr>
+    <tr *ngFor="let word of list">
+        <td>
+            <div *ngIf="!word.isEditing">
+                {{word.text}}
+            </div>
+            <div *ngIf="word.isEditing">
+                <input type="text" [(ngModel)]="word.copy.text">
+            </div>
+        </td>
+        <td>{{word.translations.join(', ')}}</td>
+        <td>
+            <div *ngIf="word.isEditing">
+                <button (click)="applyRow(word)">Применить</button>
+                <button (click)="cancelRow(word)">Отмена</button>
+            </div>
+            <div *ngIf="!word.isEditing">
+                <button (click)="editRow(word)">Редактировать</button>
+            </div>
+        </td>
+    </tr>
+</table>

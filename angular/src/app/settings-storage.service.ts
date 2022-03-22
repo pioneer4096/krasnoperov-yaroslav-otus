@@ -11,25 +11,31 @@ export interface ISettings {
 })
 export class SettingsStorageService {
 
-  settings: ISettings;
-  storageKey = 'settings'
+  private _defaultSettings: ISettings = {
+    wordsCount: 10,
+    timeLimit: 1
+  };
+
+  private storageKey = 'translator_settings';
 
   constructor(private storage: LocalStorageService) {}
-
-
-  getLatest(): ISettings {
-    return this.settings;
-  }
 
   validate(settings: ISettings) {
     return true
   }
 
-  save(settings: ISettings) {
+  save(settings: ISettings): void {
     const validation = this.validate(settings);
 
     if(validation) {
       this.storage.setItem(this.storageKey, settings)
     }
+    else {
+      throw new Error('Некорректные настройки')
+    }
+  }
+
+  load(): ISettings {
+    return this.storage.getItem(this.storageKey) || {...this._defaultSettings}
   }
 }

@@ -9,7 +9,7 @@
             <div>
                 Текущие настройки игры
                 <p>
-                    Длительность 1 минута, число задач 10 <a href="#">изменить настройки</a>
+                    Длительность {{this.settings.timeLimit || 0}} минута, число задач {{this.settings.wordsCount || 0}} <a href="#">изменить настройки</a>
                 </p>
             </div>
             <br>
@@ -44,7 +44,7 @@
 
     <div *ngIf="isPlaying">
         Играем
-        <cd-timer countdown="true" [startTime]="15" (onComplete)="timerCompleted()"></cd-timer>
+        <cd-timer countdown="true" [startTime]="timerDuration" (onComplete)="timerCompleted()"></cd-timer>
         <br>
         <button class="btn waves-effect waves-light" (click)="stopGame()">Стоп</button>
     </div>

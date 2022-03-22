@@ -40,6 +40,10 @@ export class DictionaryStorageService {
       return of(this.storage.slice(0, count))
   }
 
+  getAll() {
+      return of(this.storage)
+  }
+
   getRandom(): Word {
       return getRandomArrayElement(this.storage)
   }
