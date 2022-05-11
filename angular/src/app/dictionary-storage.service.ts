@@ -3,6 +3,19 @@ import {of} from "rxjs";
 import {getRandomArrayElement} from "./utils";
 import {LocalStorageService} from "./local-storage.service";
 
+const demoData = [
+    {"word":"слон","wordLang":"ru","date":1652302932895,"translation":"Elephant","translationLang":"en"},
+    {"word":"cat","wordLang":"en","date":1652302795780,"translation":"кот","translationLang":"ru"},
+    {"word":"собака","wordLang":"ru","date":1652302932895,"translation":"dog","translationLang":"en"},
+    {"word":"table","wordLang":"en","date":1652302795780,"translation":"стол","translationLang":"ru"},
+    {"word":"сосна","wordLang":"ru","date":1652302932895,"translation":"pine","translationLang":"en"},
+    {"word":"work","wordLang":"en","date":1652302795780,"translation":"работа","translationLang":"ru"},
+    {"word":"волк","wordLang":"ru","date":1652302932895,"translation":"волк","translationLang":"en"},
+    {"word":"paradise","wordLang":"en","date":1652302795780,"translation":"рай","translationLang":"ru"},
+    {"word":"цель","wordLang":"ru","date":1652302932895,"translation":"goal","translationLang":"en"},
+    {"word":"hell","wordLang":"en","date":1652302795780,"translation":"ад","translationLang":"ru"},
+]
+
 export interface Word {
     text: string,
     textLang: string,
@@ -19,8 +32,12 @@ export class DictionaryStorageService {
   private storageKey = 'dictionary_storage';
 
   constructor(private localStorage: LocalStorageService) {
+
+
       const saved = this.localStorage.getItem(this.storageKey);
-      this.storage = saved || [];
+      const savedArray = saved ? saved : []
+
+      this.storage = [...savedArray, ...demoData]
   }
 
   add({word, wordLang, translation, translationLang}) {
