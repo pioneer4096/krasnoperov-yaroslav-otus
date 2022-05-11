@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService} from "../dictionary-storage.service";
+import {TranslatorService} from "../translator.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-recently-added',
@@ -9,12 +11,10 @@ import {DictionaryStorageService} from "../dictionary-storage.service";
 export class RecentlyAddedComponent implements OnInit {
 
     newWord = '';
-    wordLang = 'en';
-    translation = '';
-    translationLang = 'ru';
+    lang = 'en'
     list = [];
 
-    constructor(public dictionary: DictionaryStorageService) {}
+    constructor(public dictionary: DictionaryStorageService, public translator: TranslatorService, private toastr: ToastrService) {}
 
     ngOnInit(): void {
         this.getRecent()
@@ -29,22 +29,58 @@ export class RecentlyAddedComponent implements OnInit {
     }
 
     addWord() {
-        if(this.newWord && this.translation) {
-            this.dictionary.add(this.newWord, 'en', this.translation.split(','), 'ru')
+        if(!this.newWord) {
+            this.toastr.error("Заполните слово", "ОШИБКА")
+            return
+        }
+        const params = {word: this.newWord, lang: this.lang};
+
+        try {
+            this.translator
+                .translate(params.word, params.lang)
+                .subscribe((response:any) => {
+                    let translation = response?.responseData?.translatedText || ''
+
+                    if(translation) {
+                        if(Array.isArray(translation)) {    // TODO remove cheat in future
+                            translation = translation[0]
+                        }
+
+                        try {
+                            this.dictionary.add({
+                                word: params.word,
+                                wordLang: params.lang,
+                                translation: translation,
+                                translationLang: params.lang === "ru" ? "en" : "ru"
+                            });
+                            this.newWord = ''
+                            this.getRecent()
+                            this.toastr.success("Слово добавлено", "УСПЕХ")
+                        }
+                        catch (e) {
+                            throw new Error('Не удалось сохранить перевод в словарь: ' + e.message)
+                        }
+                    }
+                    else {
+
+                    }
+                });
+        }
+        catch(e) {
+            this.toastr.error("Не удалось добавить слово", "ОШИБКА")
+        }
+
+
+        /*this.dictionary.add(this.newWord, 'en', this.translation.split(','), 'ru')
             this.newWord = ''
             this.translation = ''
             this.getRecent()
-            alert('добавлено')
-        }
-        else {
-            let fields = [
-                    {text: 'слово', value: this.newWord},
-                    {text: 'перевод', value: this.translation}
-                ]
-                .filter(f => !f.value)
-                .map(f => f.text)
-
-            alert(`Заполните поля ${fields.join(', ')}`)
-        }
+            alert('добавлено')*/
     }
+
+    changeLang() {
+        this.lang = (this.lang === 'ru') ? 'en' : 'ru'
+    }
+
+    getPair() {}
 }

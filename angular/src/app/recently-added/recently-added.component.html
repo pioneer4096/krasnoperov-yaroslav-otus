@@ -1,16 +1,17 @@
-<h5>Добавить слово / словосочетание</h5>
+<h5>Добавить слово</h5>
 <div>
     <div class="row">
         <div class="col s12">
             <div class="input-field inline mr-2">
-                <input id="add-word-text" type="text" class="validate" [(ngModel)]="newWord">
-                <label for="add-word-text">Слово ({{wordLang}})</label>
+                <input id="add-word-dict" type="text" class="validate" [(ngModel)]="newWord">
+                <label for="add-word-dict">Слово</label>
+                <span class="helper-text">введите слово на {{lang === "ru" ? "русском" : "английском"}} языке</span>
             </div>
 
             <div class="input-field inline mr-2">
-                <input id="add-word-translation" type="text" class="validate" [(ngModel)]="translation">
-                <label for="add-word-translation">Перевод ({{translationLang}})</label>
+                <span class="new badge" style="cursor: pointer" data-badge-caption="" (click)="changeLang()">{{lang}}</span>
             </div>
+
             <a class="waves-effect waves-light btn" (click)="addWord()">Добавить</a>
         </div>
     </div>
@@ -19,14 +20,17 @@
 <br>
 
 <h5>Недавно были добавлены слова:</h5>
-<ul class="word-list collection">
+<ul *ngIf="list.length" class="word-list collection">
     <li *ngFor="let word of list" class="collection-item">
         <div class="word-list-item">
-            <div>{{word.text}} ({{word.textLang}})</div>
+            <div>{{word.word}} ({{word.wordLang}})</div>
             <div class="spacer"></div>
-            <div>{{word.translations.join(', ')}}  ({{word.translationsLang}})</div>
+            <div>{{word.translation}}  ({{word.translationLang}})</div>
             <div class="spacer"></div>
             <div>{{word.date | date:'dd.MM.y hh:mm:ss'}}</div>
         </div>
     </li>
 </ul>
+<p *ngIf="list.length === 0">
+    Нет добавленных слов
+</p>

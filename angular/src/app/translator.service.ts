@@ -1,24 +1,16 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslatorService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  async translate(word) {
-      const res = await fetch("https://libretranslate.de/translate", {
-          method: "POST",
-          body: JSON.stringify({
-              q: word,
-              source: "en",
-              target: "ru",
-              format: "text"
-          }),
-          headers: { "Content-Type": "application/json" }
-      });
-
-      return await res.json();
+  translate(word, lang) {
+      const langPair = (lang === "ru") ? "ru|en" : "en|ru";
+      const addr = `https://api.mymemory.translated.net/get?q=${word}&langpair=${langPair}`;
+      return this.http.get(addr);
   }
 }

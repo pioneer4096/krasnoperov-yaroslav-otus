@@ -14,10 +14,6 @@ export class AppComponent {
             text: 'Последние добавленные слова'
         },
         {
-            href: '/dictionary',
-            text: 'Словарь'
-        },
-        {
             href: '/go',
             text: 'Упражнения'
         },

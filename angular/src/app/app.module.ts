@@ -9,9 +9,9 @@ import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GameStatComponent } from './game-stat/game-stat.component';
-import { DictionaryComponent } from './dictionary/dictionary.component';
 import { CdTimerModule } from 'angular-cd-timer';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -20,8 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
         RecentlyAddedComponent,
         GoComponent,
         SettingsComponent,
-        GameStatComponent,
-        DictionaryComponent
+        GameStatComponent
     ],
     imports: [
         BrowserModule,
@@ -30,8 +29,9 @@ import { ToastrModule } from 'ngx-toastr';
         BrowserAnimationsModule,
         CdTimerModule,
         ToastrModule.forRoot(),
+        HttpClientModule,
     ],
-    providers: [],
+    providers: [HttpClientModule, HttpClient],
     bootstrap: [AppComponent]
 })
 export class AppModule {

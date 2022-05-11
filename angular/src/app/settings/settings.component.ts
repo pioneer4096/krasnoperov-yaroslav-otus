@@ -18,7 +18,6 @@ export class SettingsComponent implements OnInit {
     }
 
     applySettings(): void {
-        console.log('try settings to apply = ', this.settings)
         try {
             this.settingsStorage.save(this.settings);
             this.toastr.success('Настройки применены', 'ОК');

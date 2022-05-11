@@ -17,3 +17,8 @@
 .spacer {
     flex-grow: 1!important;
 }
+
+.switch-active {
+    color: green;
+    text-decoration: underline;
+}
