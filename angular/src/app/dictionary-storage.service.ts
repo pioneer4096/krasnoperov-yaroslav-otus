@@ -17,11 +17,11 @@ const demoData = [
 ]
 
 export interface Word {
-    text: string,
-    textLang: string,
+    word: string,
+    wordLang: string,
     date: number,
-    translations: string[],
-    translationsLang: string
+    translation: string,
+    translationLang: string
 }
 
 @Injectable({

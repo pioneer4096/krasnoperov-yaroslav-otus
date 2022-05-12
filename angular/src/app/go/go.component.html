@@ -9,44 +9,33 @@
             <div>
                 Текущие настройки игры
                 <p>
-                    Длительность {{this.settings.timeLimit || 0}} минута, число задач {{this.settings.wordsCount || 0}} <a href="#">изменить настройки</a>
+                    Длительность {{this.settings.duration || 0}} минута, число задач {{this.settings.wordsCount || 0}} <a href="#">изменить настройки</a>
                 </p>
-            </div>
-            <br>
-            <form class="example-form col s12">
-
-                <!--<button class="btn waves-effect waves-light" type="button" name="action" (click)="generate()">Сгенерировать пример
-                    <i class="material-icons right">send</i>
-                </button>
-
-                <div class="input-field col s12">
-                    <h6 *ngIf="word">Переведите слово << <strong>{{word.text}}</strong> >> на русский язык:</h6>
-                </div>
-
-                <div class="input-field col s12">
-                    <div class="input-field inline mr-2">
-                        <input id="translation" name="translation" type="text" class="validate" [(ngModel)]="translation">
-                        <label for="translation">Перевод</label>
-                    </div>
-                    <a class="waves-effect waves-light btn-large ml-2" (click)="checkTranslation()">Проверить</a>
-
-
-                </div>
-
-                <div class="input-field col s12">
-
-                </div>-->
 
                 <button class="btn waves-effect waves-light" (click)="startGame()">Старт</button>
-            </form>
+            </div>
         </div>
     </div>
 
     <div *ngIf="isPlaying">
-        Играем
-        <cd-timer countdown="true" [startTime]="timerDuration" (onComplete)="timerCompleted()"></cd-timer>
-        <br>
-        <button class="btn waves-effect waves-light" (click)="stopGame()">Стоп</button>
+        Играем {{timerSpan}}s
+        <!--<form  class="example-form col s12">
+            <div class="input-field col s12">
+                <h6 *ngIf="word">Переведите слово << <strong>{{word.word}}</strong> >> на
+                    {{word.wordLang === "ru" ? "английский" : "русский"}}
+                    язык:</h6>
+            </div>
+
+            <div class="input-field col s12">
+                <div class="input-field inline mr-2">
+                    <input id="translation" name="translation" type="text" class="validate" [(ngModel)]="translation">
+                    <label for="translation">Перевод</label>
+                </div>
+                <a class="waves-effect waves-light btn-large ml-2" (click)="checkTranslation()">Проверить</a>
+            </div>
+
+            <button class="btn waves-effect waves-light" (click)="startGame()">Старт</button>
+        </form>-->
     </div>
 
 </div>

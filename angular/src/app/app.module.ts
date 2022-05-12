@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common'
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import { FormsModule }   from '@angular/forms';
@@ -9,10 +10,8 @@ import {GoComponent} from './go/go.component';
 import {SettingsComponent} from './settings/settings.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GameStatComponent } from './game-stat/game-stat.component';
-import { CdTimerModule } from 'angular-cd-timer';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
 
 @NgModule({
     declarations: [
@@ -27,9 +26,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
         FormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        CdTimerModule,
         ToastrModule.forRoot(),
         HttpClientModule,
+        CommonModule
     ],
     providers: [HttpClientModule, HttpClient],
     bootstrap: [AppComponent]

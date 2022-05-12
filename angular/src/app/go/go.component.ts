@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService, Word} from "../dictionary-storage.service";
 import {StatService} from "../stat.service";
 import {ISettings, SettingsStorageService} from "../settings-storage.service";
+import { ToastrService } from 'ngx-toastr';
+import {TimerService} from "../timer.service";
 
 @Component({
     selector: 'app-go',
@@ -10,30 +12,36 @@ import {ISettings, SettingsStorageService} from "../settings-storage.service";
 })
 export class GoComponent implements OnInit {
     settings: ISettings;
-    word: Word = null;
     isPlaying = false;
-    timerDuration = 15;
 
-    translation = '';
+    word: Word = null;
+    translation = "";
+    check = "";
+    timerSpan = "0";
 
-    constructor(private dictionaryStorage: DictionaryStorageService, private stat: StatService, private settingsStorage: SettingsStorageService) {
+    constructor(
+        private dictionaryStorage: DictionaryStorageService,
+        private stat: StatService,
+        private settingsStorage: SettingsStorageService,
+        private timer: TimerService,
+        private toastr: ToastrService,
+    ) {
         stat.reset()
     }
 
     ngOnInit(): void {
         this.settings = this.settingsStorage.load();
-        this.generate()
     }
 
     // TODO запоминать использованные слова в течении игры и исключать их из рандомайзинга
-    generate() {
+    nextTask() {
         this.word = this.dictionaryStorage.getRandom()
     }
 
     checkTranslation() {
         if (this.translation) {
             if (this.word) {
-                if (this.word.translations.includes(this.translation)) {
+                if (this.word.translation === this.translation) {
                     alert('correct')
                     this.stat.updateCorrect()
                 } else {
@@ -41,7 +49,7 @@ export class GoComponent implements OnInit {
                     this.stat.updateIncorrect()
                 }
                 this.translation = ''
-                this.generate()
+                this.nextTask()
             }
         } else {
             alert('Заполните поле "перевод"')
@@ -49,18 +57,29 @@ export class GoComponent implements OnInit {
 
     }
 
-    timerCompleted() {
-        alert('Timer completed')
-    }
-
     startGame() {
-        this.isPlaying = true
-        // SET GAME SETTINGS
-        // SET
+        this.isPlaying = true;
+        this.resetGame();
+        this.timer
+            .start(30)
+            .subscribe(
+                (val) => this.updateTableau(val),
+                (error) => {},
+                () => {
+                    this.isPlaying = false
+                    alert('DONE')
+                }
+            );
     }
 
-    stopGame() {
-        this.isPlaying = false
+    updateTableau(val) {
+        this.timerSpan = `${val}/30`;
+        console.log(val)
+    }
+
+    resetGame() {
+        this.stat.reset();
+        this.timerSpan = "0";
     }
 
 }

@@ -3,7 +3,7 @@ import {LocalStorageService} from "./local-storage.service";
 
 export interface ISettings {
   wordsCount: number,
-  timeLimit: number
+  duration: number
 }
 
 @Injectable({
@@ -13,7 +13,7 @@ export class SettingsStorageService {
 
   private _defaultSettings: ISettings = {
     wordsCount: 10,
-    timeLimit: 1
+    duration: 1
   };
 
   private storageKey = 'translator_settings';
