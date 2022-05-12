@@ -5,16 +5,16 @@ import {LocalStorageService} from "./local-storage.service";
 
 const demoData = [
     {"word":"слон","wordLang":"ru","date":1652302932895,"translation":"Elephant","translationLang":"en"},
-    {"word":"cat","wordLang":"en","date":1652302795780,"translation":"кот","translationLang":"ru"},
     {"word":"собака","wordLang":"ru","date":1652302932895,"translation":"dog","translationLang":"en"},
-    {"word":"table","wordLang":"en","date":1652302795780,"translation":"стол","translationLang":"ru"},
     {"word":"сосна","wordLang":"ru","date":1652302932895,"translation":"pine","translationLang":"en"},
-    {"word":"work","wordLang":"en","date":1652302795780,"translation":"работа","translationLang":"ru"},
-    {"word":"волк","wordLang":"ru","date":1652302932895,"translation":"волк","translationLang":"en"},
-    {"word":"paradise","wordLang":"en","date":1652302795780,"translation":"рай","translationLang":"ru"},
+    {"word":"волк","wordLang":"ru","date":1652302932895,"translation":"wolf","translationLang":"en"},
     {"word":"цель","wordLang":"ru","date":1652302932895,"translation":"goal","translationLang":"en"},
+    {"word":"cat","wordLang":"en","date":1652302795780,"translation":"кот","translationLang":"ru"},
+    {"word":"table","wordLang":"en","date":1652302795780,"translation":"стол","translationLang":"ru"},
+    {"word":"work","wordLang":"en","date":1652302795780,"translation":"работа","translationLang":"ru"},
+    {"word":"paradise","wordLang":"en","date":1652302795780,"translation":"рай","translationLang":"ru"},
     {"word":"hell","wordLang":"en","date":1652302795780,"translation":"ад","translationLang":"ru"},
-]
+];
 
 export interface Word {
     word: string,

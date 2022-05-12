@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService, Word} from "../dictionary-storage.service";
 import {StatService} from "../stat.service";
 import {ISettings, SettingsStorageService} from "../settings-storage.service";
-import { ToastrService } from 'ngx-toastr';
 import {TimerService} from "../timer.service";
+import {MessageService} from "../message.service";
 
 @Component({
     selector: 'app-go',
@@ -24,7 +24,7 @@ export class GoComponent implements OnInit {
         private stat: StatService,
         private settingsStorage: SettingsStorageService,
         private timer: TimerService,
-        private toastr: ToastrService,
+        private message: MessageService,
     ) {
         stat.reset()
     }
@@ -52,7 +52,7 @@ export class GoComponent implements OnInit {
                 this.nextTask()
             }
         } else {
-            alert('Заполните поле "перевод"')
+            this.message.warning(`Заполните поле "перевод"`)
         }
 
     }
@@ -67,7 +67,7 @@ export class GoComponent implements OnInit {
                 (error) => {},
                 () => {
                     this.isPlaying = false
-                    alert('DONE')
+                    this.showResult()
                 }
             );
     }
@@ -80,6 +80,10 @@ export class GoComponent implements OnInit {
     resetGame() {
         this.stat.reset();
         this.timerSpan = "0";
+    }
+
+    showResult() {
+        this.message.success('___ПОКАЗЫВАЮ РЕЗУЛЬТАТ___')
     }
 
 }
