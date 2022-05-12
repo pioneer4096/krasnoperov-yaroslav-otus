@@ -14,7 +14,6 @@ export class LocalStorageService {
     public getItem(key: string) {
         const item = localStorage.getItem(key);
         if(item) {
-            console.warn(typeof item)
             return JSON.parse(item);
         }
         else {

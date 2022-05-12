@@ -4,7 +4,7 @@ import {getRandomArrayElement} from "./utils";
 import {LocalStorageService} from "./local-storage.service";
 
 const demoData = [
-    {"word":"слон","wordLang":"ru","date":1652302932895,"translation":"Elephant","translationLang":"en"},
+    {"word":"слон","wordLang":"ru","date":1652302932895,"translation":"elephant","translationLang":"en"},
     {"word":"собака","wordLang":"ru","date":1652302932895,"translation":"dog","translationLang":"en"},
     {"word":"сосна","wordLang":"ru","date":1652302932895,"translation":"pine","translationLang":"en"},
     {"word":"волк","wordLang":"ru","date":1652302932895,"translation":"wolf","translationLang":"en"},

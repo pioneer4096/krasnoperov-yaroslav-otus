@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DictionaryStorageService, Word} from "../dictionary-storage.service";
-import {StatService} from "../stat.service";
 import {ISettings, SettingsStorageService} from "../settings-storage.service";
 import {TimerService} from "../timer.service";
 import {MessageService} from "../message.service";
+import {Game, IReport} from "../Game";
 
 @Component({
     selector: 'app-go',
@@ -17,39 +17,47 @@ export class GoComponent implements OnInit {
     word: Word = null;
     translation = "";
     check = "";
-    timerSpan = "0";
+    timerLeft = "0";
+    game = null;
+    finalStat = null;
+    finalReport: IReport[] = [];
+    gameProgress = "0/0";
+    timerSubscription;
 
     constructor(
         private dictionaryStorage: DictionaryStorageService,
-        private stat: StatService,
         private settingsStorage: SettingsStorageService,
         private timer: TimerService,
         private message: MessageService,
     ) {
-        stat.reset()
     }
 
     ngOnInit(): void {
         this.settings = this.settingsStorage.load();
     }
 
-    // TODO запоминать использованные слова в течении игры и исключать их из рандомайзинга
     nextTask() {
-        this.word = this.dictionaryStorage.getRandom()
+        if (this.game.hasSteps()) {
+            this.word = this.dictionaryStorage.getRandom()
+        } else {
+            this.finishGame(true)
+        }
     }
 
     checkTranslation() {
         if (this.translation) {
             if (this.word) {
                 if (this.word.translation === this.translation) {
-                    alert('correct')
-                    this.stat.updateCorrect()
+                    this.message.correctAnswer();
+                    this.game.correctAnswer(this.word.word, this.translation);
                 } else {
-                    alert('INcorrect')
-                    this.stat.updateIncorrect()
+                    this.message.wrongAnswer();
+                    this.game.wrongAnswer(this.word.word, this.translation);
                 }
-                this.translation = ''
-                this.nextTask()
+                this.game.next();
+                this.translation = '';
+                this.nextTask();
+                this.gameProgress = this.game.getProgress();
             }
         } else {
             this.message.warning(`Заполните поле "перевод"`)
@@ -58,32 +66,41 @@ export class GoComponent implements OnInit {
     }
 
     startGame() {
+        this.finalStat = null;
+        this.finalReport = [];
+        this.game = new Game(this.settings);
         this.isPlaying = true;
-        this.resetGame();
-        this.timer
-            .start(30)
+        this.gameProgress = this.game.getProgress();
+        const GAME_DURATION = this.game.getDuration();
+        this.nextTask();
+
+        this.timerSubscription = this.timer
+            .start(GAME_DURATION)
             .subscribe(
-                (val) => this.updateTableau(val),
-                (error) => {},
-                () => {
+                (val) => this.updateTimeLeft(GAME_DURATION - val),
+                (error) => {
                     this.isPlaying = false
-                    this.showResult()
+                },
+                () => {
+                    this.isPlaying = false;
+                    this.finishGame(false);
                 }
             );
     }
 
-    updateTableau(val) {
-        this.timerSpan = `${val}/30`;
-        console.log(val)
+    updateTimeLeft(val) {
+        const timeLeft = val > 0 ? val : 0;
+        this.timerLeft = timeLeft + "";
     }
 
-    resetGame() {
-        this.stat.reset();
-        this.timerSpan = "0";
+    finishGame(force) {
+        if(force && typeof this.timerSubscription?.unsubscribe === "function") {
+            this.timerSubscription?.unsubscribe();
+            console.log("force timer interrupt")
+        }
+        this.finalStat = this.game.getStat();
+        this.finalReport = this.game.getReport();
+        this.message.success('ИГРА ОКОНЧЕНА');
+        this.isPlaying = false;
     }
-
-    showResult() {
-        this.message.success('___ПОКАЗЫВАЮ РЕЗУЛЬТАТ___')
-    }
-
 }

@@ -1,41 +1,53 @@
 <div class="go-page">
 
     <div *ngIf="!isPlaying">
-        <div class="row right">
-            Статистика <app-game-stat></app-game-stat>
-        </div>
-
         <div class="row">
             <div>
                 Текущие настройки игры
                 <p>
-                    Длительность {{this.settings.duration || 0}} минута, число задач {{this.settings.wordsCount || 0}} <a href="#">изменить настройки</a>
+                    Длительность {{this.settings.duration || 0}} минута, число задач {{this.settings.wordsCount || 0}}
+                    <a href="#">изменить настройки</a>
                 </p>
-
+                <br>
                 <button class="btn waves-effect waves-light" (click)="startGame()">Старт</button>
             </div>
         </div>
+
+        <div class="row" *ngIf="finalStat">
+            <p style="font-weight: bold;">ИГРОВАЯ СТАТИСТИКА</p>
+            <p>Правильных: {{finalStat.correct}}</p>
+            <p>Неправильных: {{finalStat.incorrect}}</p>
+            <p>Всего: {{finalStat.total}}</p>
+        </div>
+
+        <div class="row" *ngIf="finalReport && finalReport.length">
+            <p style="font-weight: bold;">ОТЧЕТ</p>
+            <ul>
+                <li *ngFor="let item of finalReport; let i = index;">
+                    <span [ngClass]="{'correct-answer': item.isCorrect, 'wrong-answer': !item.isCorrect}">{{i+1}}) правильный ответ [{{item.rightAnswer}}], дан ответ [{{item.yourAnswer}}]</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div *ngIf="isPlaying">
-        Играем {{timerSpan}}s
-        <!--<form  class="example-form col s12">
-            <div class="input-field col s12">
-                <h6 *ngIf="word">Переведите слово << <strong>{{word.word}}</strong> >> на
+    <div *ngIf="isPlaying" class="mt-5 card-content" style="border: 1px solid lightgray; text-align: center;">
+        Играем {{timerLeft}}s заданий {{gameProgress}}
+        <form class="example-form s12" style="margin: 0 auto; min-height: 200px;">
+            <div class="card-content">
+                <h6>Переведите слово << <strong>{{word.word}}</strong> >> на
                     {{word.wordLang === "ru" ? "английский" : "русский"}}
                     язык:</h6>
-            </div>
 
-            <div class="input-field col s12">
-                <div class="input-field inline mr-2">
-                    <input id="translation" name="translation" type="text" class="validate" [(ngModel)]="translation">
-                    <label for="translation">Перевод</label>
+                <div class="input-field col s12">
+                    <div class="input-field inline mr-2">
+                        <input id="translation" name="translation" type="text" class="validate"
+                               [(ngModel)]="translation">
+                        <label for="translation">Перевод</label>
+                    </div>
+                    <a class="waves-effect waves-light btn-large ml-2" (click)="checkTranslation()">Проверить</a>
                 </div>
-                <a class="waves-effect waves-light btn-large ml-2" (click)="checkTranslation()">Проверить</a>
             </div>
-
-            <button class="btn waves-effect waves-light" (click)="startGame()">Старт</button>
-        </form>-->
+        </form>
     </div>
 
 </div>
