@@ -49,10 +49,10 @@ export class GoComponent implements OnInit {
             if (this.word) {
                 if (this.word.translation === this.translation) {
                     this.message.correctAnswer();
-                    this.game.correctAnswer(this.word.word, this.translation);
+                    this.game.correctAnswer(this.word.translation, this.translation);
                 } else {
                     this.message.wrongAnswer();
-                    this.game.wrongAnswer(this.word.word, this.translation);
+                    this.game.wrongAnswer(this.word.translation, this.translation);
                 }
                 this.game.next();
                 this.translation = '';

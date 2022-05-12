@@ -11,3 +11,11 @@
 .ml-2 {
     margin-left: 2rem;
 }
+
+.correct-answer {
+    color: green;
+}
+
+.wrong-answer {
+    color: red;
+}
