@@ -1,0 +1,46 @@
+<h5>Настройки приложения</h5>
+<div>
+    <div class="row">
+        <form class="example-form col s12">
+            <div class="input-field col s12">
+                <h6>Выберите языки</h6>
+                <ul>
+                    <li>
+                        <label>
+                            <input type="checkbox" checked="checked" disabled="disabled"/>
+                            <span>Английский</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" disabled="disabled" />
+                            <span>Французский</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" disabled="disabled" />
+                            <span>Японский</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="input-field col s12">
+                <h6>Количество слов в упражнении</h6>
+                <input id="words-count" name="wordsCount" type="number" class="validate" [(ngModel)]="settings.wordsCount">
+                <span class="helper-text" data-error="wrong">Упражнение не закончится, пока все слова не будут использованы</span>
+            </div>
+
+            <div class="input-field col s12">
+                <h6>Длительность упражнения</h6>
+                <input id="duration" name="duration" type="number" class="validate" [(ngModel)]="settings.duration">
+                <span class="helper-text" data-error="wrong">Сколько минут отводится на упражнение, от 1 до 15</span>
+            </div>
+
+
+            <a class="waves-effect waves-light btn darken-2" (click)="applySettings()">Применить</a>
+        </form>
+    </div>
+</div>
